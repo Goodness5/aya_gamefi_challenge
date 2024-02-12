@@ -76,7 +76,10 @@ enum Level {
         return numCharacters;
     }
 
-    // Function to set the user's ordering
+
+
+
+    // Function to set characters for each level
     function setLevelOrdering(Level _userlevel, address _playeraddress) internal returns(uint[] memory _order) {
         uint numCharacters = 22; // Total number of characters (heroes and villains)
         uint numSelections = calculateNumCharacters(_userlevel);
@@ -84,12 +87,13 @@ enum Level {
         _order = new uint[](numSelections);
 
         // Define character arrays for each level and sublevel
-        uint[] memory beginnerCharacters = [uint(Hero.Spiderman), uint(Hero.IronMan), uint(Hero.Hulk), uint(Hero.Wolverine), uint(Hero.Batman), uint(Hero.WonderWoman), uint(Hero.GreenArrow), uint(Hero.Flash), uint(Villain.Magneto), uint(Villain.Thanos)];
-        uint[] memory eliteCharacters = [uint(Hero.Spiderman), uint(Hero.IronMan), uint(Hero.Hulk), uint(Hero.Wolverine), uint(Villain.Magneto), uint(Villain.Thanos), uint(Villain.Darkseid), uint(Villain.Loki), uint(Villain.Joker), uint(Villain.LexLuthor)];
-        uint[] memory masterCharacters = [uint(Hero.Superman), uint(Hero.Batman), uint(Hero.WonderWoman), uint(Hero.GreenArrow), uint(Hero.Flash), uint(Hero.IronMan), uint(Hero.Thor), uint(Hero.Hulk), uint(Hero.Spiderman), uint(Hero.Wolverine)];
+        uint[11] memory beginnerCharacters = [uint(Hero.Spiderman), uint(Hero.IronMan), uint(Hero.Hawkeye), uint(Hero.Wolverine), uint(Hero.Batman), uint(Hero.WonderWoman), uint(Hero.GreenArrow), uint(Hero.Flash), uint(Villain.Magneto), uint(Villain.Thanos), uint(Villain.Darkseid)];
+        uint[11] memory eliteCharacters = [uint(Hero.Spiderman), uint(Hero.IronMan), uint(Hero.Hulk), uint(Hero.MartianManhunter), uint(Hero.Batman), uint(Hero.WonderWoman), uint(Hero.GreenArrow), uint(Hero.Flash), uint(Villain.Magneto), uint(Villain.Thanos), uint(Villain.Darkseid)];
+        uint[11] memory masterCharacters = [uint(Hero.Superman), uint(Hero.Batman), uint(Hero.WonderWoman), uint(Hero.GreenArrow), uint(Hero.Flash), uint(Hero.IronMan), uint(Hero.Thor), uint(Hero.Hulk), uint(Hero.Spiderman), uint(Hero.Wolverine), uint(Villain.Magneto)];
+        uint[11] memory legendaryCharacters = [uint(Hero.Superman), uint(Hero.MartianManhunter), uint(Hero.GreenArrow), uint(Hero.IronMan), uint(Hero.Thor), uint(Hero.Hulk), uint(Hero.WonderWoman), uint(Hero.Flash), uint(Villain.Thanos), uint(Villain.Darkseid), uint(Villain.Apocalypse)];
 
         // Determine which characters to select based on the player's level
-        uint[] memory selectedCharacters;
+        uint[11] memory selectedCharacters;
         if (_userlevel == Level.BeginnerI || _userlevel == Level.BeginnerII || _userlevel == Level.BeginnerIII || _userlevel == Level.BeginnerIV) {
             selectedCharacters = beginnerCharacters;
         } else if (_userlevel == Level.EliteI || _userlevel == Level.EliteII || _userlevel == Level.EliteIII || _userlevel == Level.EliteIV) {
@@ -97,18 +101,16 @@ enum Level {
         } else if (_userlevel == Level.MasterI || _userlevel == Level.MasterII || _userlevel == Level.MasterIII || _userlevel == Level.MasterIV) {
             selectedCharacters = masterCharacters;
         } else if (_userlevel == Level.Legendary) {
-            // Handle Legendary level if necessary
+            selectedCharacters = legendaryCharacters;
         }
 
-        // Shuffle the selected characters to randomize the order
-        selectedCharacters = shuffleArray(selectedCharacters);
+
 
         // Fill the order array with the selected characters
         for (uint i = 0; i < numSelections; i++) {
             _order[i] = selectedCharacters[i % selectedCharacters.length];
         }
     }
-
 
 
     function increaseLevel(address player, uint _matches) internal {
@@ -140,8 +142,37 @@ enum Level {
         return true;
     }
 
-    function setGameOrder(Level _userlevel) internal returns (uint[] memory _correctorder) {
-
+    function setGameOrder(Level _userlevel, address _playeraddress) internal returns (uint[] memory _correctorder) {
+        uint[] memory _characters = setLevelOrdering(_userlevel, _playeraddress);
         
+        // Define the minimum and maximum values for array length based on the level
+        uint minRange;
+        uint maxRange;
+        
+        if (_userlevel == Level.BeginnerI || _userlevel == Level.BeginnerII || _userlevel == Level.BeginnerIII || _userlevel == Level.BeginnerIV) {
+            minRange = 3;
+            maxRange = 5;
+        } else if (_userlevel == Level.EliteI || _userlevel == Level.EliteII || _userlevel == Level.EliteIII || _userlevel == Level.EliteIV) {
+            minRange = 5;
+            maxRange = 7;
+        } else if (_userlevel == Level.MasterI || _userlevel == Level.MasterII || _userlevel == Level.MasterIII || _userlevel == Level.MasterIV) {
+            minRange = 7;
+            maxRange = 9;
+        } else if (_userlevel == Level.Legendary) {
+            // Define the range for Legendary level
+            minRange = 9;
+            maxRange = _characters.length; // Set maximum range to the length of _characters array
+        }
+        
+        // Calculate the array length within the defined range
+        uint arraylength = (block.number % (maxRange - minRange + 1)) + minRange;
+
+        _correctorder = new uint[](arraylength);
+        for (uint i = 0; i < arraylength; i++) {
+            _correctorder[i] = _characters[i % _characters.length];
+        }
+        return _correctorder;
     }
+
+
 }
