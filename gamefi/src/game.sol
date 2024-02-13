@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 
 import {Ownable} from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
-import {Inft} from "./Inft.sol";
+import {Inft, Istake} from "./interface.sol";
 import {IERC20} from "../lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 contract Game is Ownable {
@@ -60,6 +60,7 @@ contract Game is Ownable {
     uint LastLegendaryBadgeId;
 
     address public rewardToken;
+    address stakeAddress;
     address public nftBadge;
     mapping(address => PlayerDetails) private Playerdetails;
     // mapping(address => uint[]) public userOrdering;
@@ -197,148 +198,179 @@ contract Game is Ownable {
         }
     }
 
-function increaseLevel(address player, uint _matches) internal {
-        PlayerDetails storage playerDetails = Playerdetails[player];
-        Level currentLevel = playerDetails._playerLevel;
-        uint currentLevelProgress = specificLevel[player][currentLevel];
-        uint requiredProgress = calculateRequiredProgress(currentLevel); 
+    function increaseLevel(address player, uint _matches) internal {
+            PlayerDetails storage playerDetails = Playerdetails[player];
+            Level currentLevel = playerDetails._playerLevel;
+            uint currentLevelProgress = specificLevel[player][currentLevel];
+            uint requiredProgress = calculateRequiredProgress(currentLevel); 
 
-        currentLevelProgress += _matches;
+            currentLevelProgress += _matches;
 
-        if (currentLevelProgress >= requiredProgress) {
-            if (currentLevel == Level.Legendary) {
-                // Handle reaching the maximum level
-                uint tokenId = issueBadge(player);
-                emit BadgeIssued(player, tokenId);
-                return;
+            if (currentLevelProgress >= requiredProgress) {
+                if (currentLevel == Level.Legendary) {
+                    // Handle reaching the maximum level
+                    uint tokenId = issueBadge(player);
+                    emit BadgeIssued(player, tokenId);
+                    return;
+                }
+                // Increment to the next level
+                playerDetails._playerLevel = Level(uint(currentLevel) + 1);
+                // Reset the progress for the new level
+                specificLevel[player][playerDetails._playerLevel] = 0;
+                
+                // Issue tokens to the player based on the new level
+                uint tokensToIssue = calculateTokens(playerDetails._playerLevel, _matches);
+                playerDetails._rewardBalance += tokensToIssue;
             }
-            // Increment to the next level
-            playerDetails._playerLevel = Level(uint(currentLevel) + 1);
-            // Reset the progress for the new level
-            specificLevel[player][playerDetails._playerLevel] = 0;
+        }
+
+
+
+
+        function _withdrawErc20() public {
+                PlayerDetails storage playerDetails = Playerdetails[msg.sender];
+                require(playerDetails._rewardBalance >0, "insufficient balance");
+
+                    IERC20(rewardToken).transfer(msg.sender, playerDetails._rewardBalance);
             
-            // Issue tokens to the player based on the new level
-            uint tokensToIssue = calculateTokens(playerDetails._playerLevel, _matches);
-            playerDetails._rewardBalance += tokensToIssue;
         }
-    }
 
-    function _withdrawErc20() public {
-            PlayerDetails storage playerDetails = Playerdetails[msg.sender];
-            require(playerDetails._rewardBalance >0, "insufficient balance");
-
-                IERC20(rewardToken).transfer(msg.sender, playerDetails._rewardBalance);
-        
-    }
-
-  function calculateTokens(Level _level, uint _matches) internal pure returns (uint) {
-        // Reward pattern: 5 tokens for Beginner, token gets doubled for each subsequent level
-        
-        return _matches + (uint(_level) * 5);
-    }
-
-    // Function to issue badge NFT to the player upon reaching legendary level
-function issueBadge(address player) internal returns (uint) {
-    uint tokenId = LastLegendaryBadgeId;
-    Inft(nftBadge).mint(player, tokenId); // Mint the badge NFT and transfer it to the player
     
-    LastLegendaryBadgeId ++;
-    return tokenId;
-}
-    // Function to calculate the required progress for leveling up based on the level
-    function calculateRequiredProgress(
-        Level _level
-    ) internal pure returns (uint) {
-        if (
-            _level == Level.BeginnerI ||
-            _level == Level.BeginnerII ||
-            _level == Level.BeginnerIII ||
-            _level == Level.BeginnerIV
-        ) {
-            return 5; // For Beginner levels, require 10 matches
-        } else if (
-            _level == Level.EliteI ||
-            _level == Level.EliteII ||
-            _level == Level.EliteIII ||
-            _level == Level.EliteIV
-        ) {
-            return 15; // For Elite levels, require 15 matches
-        } else if (
-            _level == Level.MasterI ||
-            _level == Level.MasterII ||
-            _level == Level.MasterIII ||
-            _level == Level.MasterIV
-        ) {
-            return 20; // For Master levels, require 20 matches
-        } else if (_level == Level.Legendary) {
-            // Handle Legendary level if necessary
-            return 0; // Assuming no further progression after Legendary level
+    function calculateTokens(Level _level, uint _matches) internal pure returns (uint) {
+            // Reward pattern: 5 tokens for Beginner, token gets doubled for each subsequent level
+            return _matches + (uint(_level) * 5);
         }
-    }
 
-    // Function to validate the user's guess cont returns the correct number of guess
-    // the player made
-    function validateOrdering(
-        uint[] memory _userOrdering,
-        uint[] memory _correctorder
-    ) internal pure returns (uint) {
-        // require(_userOrdering.length == _correctorder.length, "Invalid character numbers");
-        uint correctCount = 0;
-        for (uint i = 0; i < _correctorder.length; i++) {
-            if (_userOrdering[i] == _correctorder[i]) {
-                correctCount++;
+
+
+        // Function to issue badge NFT to the player upon reaching legendary level
+
+
+
+        function issueBadge(address player) internal returns (uint) {
+            uint tokenId = LastLegendaryBadgeId;
+            Inft(nftBadge).mint(player, tokenId); // Mint the badge NFT and transfer it to the player
+            
+            LastLegendaryBadgeId ++;
+            return tokenId;
+        }
+    
+    
+    
+    
+        // Function to calculate the required progress for leveling up based on the level    
+        function calculateRequiredProgress(
+            Level _level
+        ) internal pure returns (uint) {
+            if (
+                _level == Level.BeginnerI ||
+                _level == Level.BeginnerII ||
+                _level == Level.BeginnerIII ||
+                _level == Level.BeginnerIV
+            ) {
+                return 5; // For Beginner levels, require 10 matches
+            } else if (
+                _level == Level.EliteI ||
+                _level == Level.EliteII ||
+                _level == Level.EliteIII ||
+                _level == Level.EliteIV
+            ) {
+                return 15; // For Elite levels, require 15 matches
+            } else if (
+                _level == Level.MasterI ||
+                _level == Level.MasterII ||
+                _level == Level.MasterIII ||
+                _level == Level.MasterIV
+            ) {
+                return 20; // For Master levels, require 20 matches
+            } else if (_level == Level.Legendary) {
+                
+                return 0;
             }
         }
-        return correctCount;
-    }
 
-    function setGameOrder(
-        Level _userlevel
-    ) internal view returns (uint[] memory _correctorder) {
-        uint[] memory _characters = setLevelOrdering(_userlevel);
-
-        // Define the minimum and maximum values for array length based on the level
-        uint minRange;
-        uint maxRange;
-
-        if (
-            _userlevel == Level.BeginnerI ||
-            _userlevel == Level.BeginnerII ||
-            _userlevel == Level.BeginnerIII ||
-            _userlevel == Level.BeginnerIV
-        ) {
-            minRange = 3;
-            maxRange = 5;
-        } else if (
-            _userlevel == Level.EliteI ||
-            _userlevel == Level.EliteII ||
-            _userlevel == Level.EliteIII ||
-            _userlevel == Level.EliteIV
-        ) {
-            minRange = 5;
-            maxRange = 7;
-        } else if (
-            _userlevel == Level.MasterI ||
-            _userlevel == Level.MasterII ||
-            _userlevel == Level.MasterIII ||
-            _userlevel == Level.MasterIV
-        ) {
-            minRange = 7;
-            maxRange = 9;
-        } else if (_userlevel == Level.Legendary) {
-            // Define the range for Legendary level
-            minRange = 9;
-            maxRange = _characters.length; // Set maximum range to the length of _characters array
+        // Function to validate the user's guess cont returns the correct number of guess
+        // the player made
+        function validateOrdering(
+            uint[] memory _userOrdering,
+            uint[] memory _correctorder
+        ) internal pure returns (uint) {
+            // require(_userOrdering.length == _correctorder.length, "Invalid character numbers");
+            uint correctCount = 0;
+            for (uint i = 0; i < _correctorder.length; i++) {
+                if (_userOrdering[i] == _correctorder[i]) {
+                    correctCount++;
+                }
+            }
+            return correctCount;
         }
 
-        // Calculate the array length within the defined range
-        uint arraylength = (block.number % (maxRange - minRange + 1)) +
-            minRange;
+        function setGameOrder(
+            Level _userlevel
+        ) internal view returns (uint[] memory _correctorder) {
+            uint[] memory _characters = setLevelOrdering(_userlevel);
 
-        _correctorder = new uint[](arraylength);
-        for (uint i = 0; i < arraylength; i++) {
-            _correctorder[i] = _characters[i % _characters.length];
+            // Define the minimum and maximum values for array length based on the level
+            uint minRange;
+            uint maxRange;
+
+            if (
+                _userlevel == Level.BeginnerI ||
+                _userlevel == Level.BeginnerII ||
+                _userlevel == Level.BeginnerIII ||
+                _userlevel == Level.BeginnerIV
+            ) {
+                minRange = 3;
+                maxRange = 5;
+            } else if (
+                _userlevel == Level.EliteI ||
+                _userlevel == Level.EliteII ||
+                _userlevel == Level.EliteIII ||
+                _userlevel == Level.EliteIV
+            ) {
+                minRange = 5;
+                maxRange = 7;
+            } else if (
+                _userlevel == Level.MasterI ||
+                _userlevel == Level.MasterII ||
+                _userlevel == Level.MasterIII ||
+                _userlevel == Level.MasterIV
+            ) {
+                minRange = 7;
+                maxRange = 9;
+            } else if (_userlevel == Level.Legendary) {
+                // Define the range for Legendary level
+                minRange = 9;
+                maxRange = _characters.length; // Set maximum range to the length of _characters array
+            }
+
+            // Calculate the array length within the defined range
+            uint arraylength = (block.number % (maxRange - minRange + 1)) +
+                minRange;
+
+            _correctorder = new uint[](arraylength);
+            for (uint i = 0; i < arraylength; i++) {
+                _correctorder[i] = _characters[i % _characters.length];
+            }
+            return _correctorder;
         }
-        return _correctorder;
-    }
+
+
+
+ function stakeReward() public returns(uint) {
+    
+    PlayerDetails storage _user = Playerdetails[msg.sender];
+    // Approve the transfer of tokens to the StakingContract
+    require(IERC20(rewardToken).approve(stakeAddress, _user._rewardBalance), "Approval failed");
+
+    // Call the stake function of the StakingContract
+   uint stakedamount = Istake(stakeAddress).stake(rewardToken, msg.sender, _user._rewardBalance);
+    _user._rewardBalance = 0;
+    return stakedamount;
 }
+
+    
+    
+    
+    
+    }

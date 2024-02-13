@@ -6,3 +6,8 @@ interface Inft {
     function exists(uint256 tokenId) external returns (bool);
     
 }
+interface Istake {
+    function stake(address token, address _staker, uint256 amount) external  returns(uint);
+    
+    
+}
