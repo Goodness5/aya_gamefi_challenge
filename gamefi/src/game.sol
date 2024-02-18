@@ -58,7 +58,7 @@ contract Game is Ownable {
     }
 
     uint LastLegendaryBadgeId;
-
+    // PlayerDetails[] myarrar;
     address public rewardToken;
     address stakeAddress;
     address public nftBadge;
@@ -71,6 +71,7 @@ contract Game is Ownable {
 
     event BadgeIssued(address indexed player, uint timestamp);
 
+
     constructor(
         address _initialOwner,
         address _nftBadge,
@@ -80,13 +81,15 @@ contract Game is Ownable {
         rewardToken = _rewardtoken;
     }
 
-    function StartGame(uint[] memory _userguess) public {
+    function StartGame(uint[] memory _userguess) public  returns(uint[] memory) {
+
         PlayerDetails storage _user = Playerdetails[msg.sender];
         // userOrdering[msg.sender] = _userguess;
         uint[] memory _order = setGameOrder(_user._playerLevel);
         uint correctguess = validateOrdering(_userguess, _order);
         increaseLevel(msg.sender, correctguess);
         _user._correctorder = _order;
+        return  _user._correctorder;
     }
 
     function calculateNumCharacters(
@@ -103,10 +106,15 @@ contract Game is Ownable {
         return numCharacters;
     }
 
+function getnumofinput() public view returns (uint) {
+    PlayerDetails storage _user = Playerdetails[msg.sender];
+    return calculateNumCharacters(_user._playerLevel);
+    
+}
     // Function to set characters for each level
     function setLevelOrdering(
         Level _userlevel
-    ) internal pure returns (uint[] memory _order) {
+    ) internal view returns (uint[] memory _order) {
         uint numSelections = calculateNumCharacters(_userlevel);
 
         _order = new uint[](numSelections);
@@ -192,10 +200,15 @@ contract Game is Ownable {
             selectedCharacters = legendaryCharacters;
         }
 
-        // Fill the order array with the selected characters
-        for (uint i = 0; i < numSelections; i++) {
-            _order[i] = selectedCharacters[i % selectedCharacters.length];
-        }
+    for (uint i = numSelections - 1; i > 0; i--) {
+        uint j = getRandomNumber(0, i); 
+        (selectedCharacters[i], selectedCharacters[j]) = (selectedCharacters[j], selectedCharacters[i]);
+    }
+
+    // Fill the order array with the selected characters
+    for (uint i = 0; i < numSelections; i++) {
+        _order[i] = selectedCharacters[i];
+    }
     }
 
     function increaseLevel(address player, uint _matches) internal {
@@ -305,58 +318,64 @@ contract Game is Ownable {
             return correctCount;
         }
 
-        function setGameOrder(
-            Level _userlevel
-        ) internal view returns (uint[] memory _correctorder) {
-            uint[] memory _characters = setLevelOrdering(_userlevel);
+  function setGameOrder(Level _userlevel) internal view returns (uint[] memory _correctorder) {
+    uint[] memory _characters = setLevelOrdering(_userlevel);
 
-            // Define the minimum and maximum values for array length based on the level
-            uint minRange;
-            uint maxRange;
+    // Define the minimum and maximum values for array length based on the level
+    uint minRange;
+    uint maxRange;
 
-            if (
-                _userlevel == Level.BeginnerI ||
-                _userlevel == Level.BeginnerII ||
-                _userlevel == Level.BeginnerIII ||
-                _userlevel == Level.BeginnerIV
-            ) {
-                minRange = 3;
-                maxRange = 5;
-            } else if (
-                _userlevel == Level.EliteI ||
-                _userlevel == Level.EliteII ||
-                _userlevel == Level.EliteIII ||
-                _userlevel == Level.EliteIV
-            ) {
-                minRange = 5;
-                maxRange = 7;
-            } else if (
-                _userlevel == Level.MasterI ||
-                _userlevel == Level.MasterII ||
-                _userlevel == Level.MasterIII ||
-                _userlevel == Level.MasterIV
-            ) {
-                minRange = 7;
-                maxRange = 9;
-            } else if (_userlevel == Level.Legendary) {
-                // Define the range for Legendary level
-                minRange = 9;
-                maxRange = _characters.length; // Set maximum range to the length of _characters array
-            }
+    if (
+        _userlevel == Level.BeginnerI ||
+        _userlevel == Level.BeginnerII ||
+        _userlevel == Level.BeginnerIII ||
+        _userlevel == Level.BeginnerIV
+    ) {
+        minRange = 3;
+        maxRange = 5;
+    } else if (
+        _userlevel == Level.EliteI ||
+        _userlevel == Level.EliteII ||
+        _userlevel == Level.EliteIII ||
+        _userlevel == Level.EliteIV
+    ) {
+        minRange = 5;
+        maxRange = 7;
+    } else if (
+        _userlevel == Level.MasterI ||
+        _userlevel == Level.MasterII ||
+        _userlevel == Level.MasterIII ||
+        _userlevel == Level.MasterIV
+    ) {
+        minRange = 7;
+        maxRange = 9;
+    } else if (_userlevel == Level.Legendary) {
+        // Define the range for Legendary level
+        minRange = 9;
+        maxRange = _characters.length;
+    }
 
-            // Calculate the array length within the defined range
-         uint arrayLength = getRandomNumber(minRange, maxRange);
+    // // Calculate the array length within the defined range
+    // uint arrayLength = getRandomNumber(minRange, maxRange);
 
-            _correctorder = new uint[](arrayLength);
-            for (uint i = 0; i < arrayLength; i++) {
-                _correctorder[i] = _characters[i % _characters.length];
-            }
-            return _correctorder;
-        }
+    // // Create _correctorder array with the determined length
+    // _correctorder = new uint[](arrayLength);
 
-function getRandomNumber(uint min, uint max) internal view returns (uint) {
-    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % (max - min + 1) + min;
+    // Fill _correctorder with items from _characters up to the determined length
+    for (uint i = 0; i < _correctorder.length; i++) {
+        _correctorder[i] = _characters[i % _characters.length];
+    }
+
+    return _correctorder;
 }
+
+
+function getRandomNumber(uint min, uint max) public view returns (uint) {
+    uint randomHash = uint256(blockhash(block.number - 1));
+    uint randomNumber = uint(keccak256(abi.encodePacked(randomHash, block.difficulty, block.coinbase, block.timestamp, block.gaslimit, tx.gasprice, tx.origin)));
+    return randomNumber % (max - min + 1) + min;
+}
+
 
 
  function stakeReward() public returns(uint) {

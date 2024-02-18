@@ -51,15 +51,24 @@ function testStakingEmptyReward() public {
 
 function testStartGame() public {
     vm.startPrank(player);
+    _game.getnumofinput();
     uint[] memory userGuess = new uint[](3);
-    userGuess[0] = 0;
-    userGuess[1] = 1;
-    userGuess[2] = 2;
+    userGuess[0] = 11;
+    userGuess[1] = 8;
+    userGuess[2] = 1;
+    // userGuess[3] = 3;
+    // userGuess[4] = 2;
+    // userGuess[5] = 3;
 
-    // Call the StartGame function with the dynamic array
+    // // Call the StartGame function with the dynamic array
     _game.StartGame(userGuess);
 }
 
+function testrandomnumber() public {
+    vm.startPrank(player);
+    // vm.warp(111466637);
+    _game.getRandomNumber(3, 5);
+}
 
 
 
