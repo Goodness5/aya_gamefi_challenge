@@ -81,6 +81,18 @@ contract Game is Ownable {
         rewardToken = _rewardtoken;
     }
 
+function getnumofinput() public view returns (uint) {
+    PlayerDetails storage _user = Playerdetails[msg.sender];
+    return calculateNumCharacters(_user._playerLevel);
+    
+}
+function getplayerLevel() view public returns (Level level, uint stage) {
+    PlayerDetails storage _user = Playerdetails[msg.sender];
+    level = _user._playerLevel;
+    stage = specificLevel[msg.sender][level];
+
+    
+}
     function StartGame(uint[] memory _userguess) public  returns(uint[] memory) {
 
         PlayerDetails storage _user = Playerdetails[msg.sender];
@@ -106,110 +118,6 @@ contract Game is Ownable {
         return numCharacters;
     }
 
-function getnumofinput() public view returns (uint) {
-    PlayerDetails storage _user = Playerdetails[msg.sender];
-    return calculateNumCharacters(_user._playerLevel);
-    
-}
-    // Function to set characters for each level
-    function setLevelOrdering(
-        Level _userlevel
-    ) internal view returns (uint[] memory _order) {
-        uint numSelections = calculateNumCharacters(_userlevel);
-
-        _order = new uint[](numSelections);
-
-        // Define character arrays for each level and sublevel
-        uint[11] memory beginnerCharacters = [
-            uint(Hero.Spiderman),
-            uint(Hero.IronMan),
-            uint(Hero.Hawkeye),
-            uint(Hero.Wolverine),
-            uint(Hero.Batman),
-            uint(Hero.WonderWoman),
-            uint(Hero.GreenArrow),
-            uint(Hero.Flash),
-            uint(Villain.Magneto),
-            uint(Villain.Thanos),
-            uint(Villain.Darkseid)
-        ];
-        uint[11] memory eliteCharacters = [
-            uint(Hero.Spiderman),
-            uint(Hero.IronMan),
-            uint(Hero.Hulk),
-            uint(Hero.MartianManhunter),
-            uint(Hero.Batman),
-            uint(Hero.WonderWoman),
-            uint(Hero.GreenArrow),
-            uint(Hero.Flash),
-            uint(Villain.Magneto),
-            uint(Villain.Thanos),
-            uint(Villain.Darkseid)
-        ];
-        uint[11] memory masterCharacters = [
-            uint(Hero.Superman),
-            uint(Hero.Batman),
-            uint(Hero.WonderWoman),
-            uint(Hero.GreenArrow),
-            uint(Hero.Flash),
-            uint(Hero.IronMan),
-            uint(Hero.Thor),
-            uint(Hero.Hulk),
-            uint(Hero.Spiderman),
-            uint(Hero.Wolverine),
-            uint(Villain.Magneto)
-        ];
-        uint[11] memory legendaryCharacters = [
-            uint(Hero.Superman),
-            uint(Hero.MartianManhunter),
-            uint(Hero.GreenArrow),
-            uint(Hero.IronMan),
-            uint(Hero.Thor),
-            uint(Hero.Hulk),
-            uint(Hero.WonderWoman),
-            uint(Hero.Flash),
-            uint(Villain.Thanos),
-            uint(Villain.Darkseid),
-            uint(Villain.Apocalypse)
-        ];
-
-        // Determine which characters to select based on the player's level
-        uint[11] memory selectedCharacters;
-        if (
-            _userlevel == Level.BeginnerI ||
-            _userlevel == Level.BeginnerII ||
-            _userlevel == Level.BeginnerIII ||
-            _userlevel == Level.BeginnerIV
-        ) {
-            selectedCharacters = beginnerCharacters;
-        } else if (
-            _userlevel == Level.EliteI ||
-            _userlevel == Level.EliteII ||
-            _userlevel == Level.EliteIII ||
-            _userlevel == Level.EliteIV
-        ) {
-            selectedCharacters = eliteCharacters;
-        } else if (
-            _userlevel == Level.MasterI ||
-            _userlevel == Level.MasterII ||
-            _userlevel == Level.MasterIII ||
-            _userlevel == Level.MasterIV
-        ) {
-            selectedCharacters = masterCharacters;
-        } else if (_userlevel == Level.Legendary) {
-            selectedCharacters = legendaryCharacters;
-        }
-
-    for (uint i = numSelections - 1; i > 0; i--) {
-        uint j = getRandomNumber(0, i); 
-        (selectedCharacters[i], selectedCharacters[j]) = (selectedCharacters[j], selectedCharacters[i]);
-    }
-
-    // Fill the order array with the selected characters
-    for (uint i = 0; i < numSelections; i++) {
-        _order[i] = selectedCharacters[i];
-    }
-    }
 
     function increaseLevel(address player, uint _matches) internal {
             PlayerDetails storage playerDetails = Playerdetails[player];
@@ -318,6 +226,105 @@ function getnumofinput() public view returns (uint) {
             return correctCount;
         }
 
+    // Function to set characters for each level
+    function setLevelOrdering(
+        Level _userlevel
+    ) internal view returns (uint[] memory _order) {
+        uint numSelections = calculateNumCharacters(_userlevel);
+
+        _order = new uint[](numSelections);
+
+        // Define character arrays for each level and sublevel
+        uint[11] memory beginnerCharacters = [
+            uint(Hero.Spiderman),
+            uint(Hero.IronMan),
+            uint(Hero.Hawkeye),
+            uint(Hero.Wolverine),
+            uint(Hero.Batman),
+            uint(Hero.WonderWoman),
+            uint(Hero.GreenArrow),
+            uint(Hero.Flash),
+            uint(Villain.Magneto),
+            uint(Villain.Thanos),
+            uint(Villain.Darkseid)
+        ];
+        uint[11] memory eliteCharacters = [
+            uint(Hero.Spiderman),
+            uint(Hero.IronMan),
+            uint(Hero.Hulk),
+            uint(Hero.MartianManhunter),
+            uint(Hero.Batman),
+            uint(Hero.WonderWoman),
+            uint(Hero.GreenArrow),
+            uint(Hero.Flash),
+            uint(Villain.Magneto),
+            uint(Villain.Thanos),
+            uint(Villain.Darkseid)
+        ];
+        uint[11] memory masterCharacters = [
+            uint(Hero.Superman),
+            uint(Hero.Batman),
+            uint(Hero.WonderWoman),
+            uint(Hero.GreenArrow),
+            uint(Hero.Flash),
+            uint(Hero.IronMan),
+            uint(Hero.Thor),
+            uint(Hero.Hulk),
+            uint(Hero.Spiderman),
+            uint(Hero.Wolverine),
+            uint(Villain.Magneto)
+        ];
+        uint[11] memory legendaryCharacters = [
+            uint(Hero.Superman),
+            uint(Hero.MartianManhunter),
+            uint(Hero.GreenArrow),
+            uint(Hero.IronMan),
+            uint(Hero.Thor),
+            uint(Hero.Hulk),
+            uint(Hero.WonderWoman),
+            uint(Hero.Flash),
+            uint(Villain.Thanos),
+            uint(Villain.Darkseid),
+            uint(Villain.Apocalypse)
+        ];
+
+        // Determine which characters to select based on the player's level
+        uint[11] memory selectedCharacters;
+        if (
+            _userlevel == Level.BeginnerI ||
+            _userlevel == Level.BeginnerII ||
+            _userlevel == Level.BeginnerIII ||
+            _userlevel == Level.BeginnerIV
+        ) {
+            selectedCharacters = beginnerCharacters;
+        } else if (
+            _userlevel == Level.EliteI ||
+            _userlevel == Level.EliteII ||
+            _userlevel == Level.EliteIII ||
+            _userlevel == Level.EliteIV
+        ) {
+            selectedCharacters = eliteCharacters;
+        } else if (
+            _userlevel == Level.MasterI ||
+            _userlevel == Level.MasterII ||
+            _userlevel == Level.MasterIII ||
+            _userlevel == Level.MasterIV
+        ) {
+            selectedCharacters = masterCharacters;
+        } else if (_userlevel == Level.Legendary) {
+            selectedCharacters = legendaryCharacters;
+        }
+
+    for (uint i = numSelections - 1; i > 0; i--) {
+        uint j = getRandomNumber(0, i); 
+        (selectedCharacters[i], selectedCharacters[j]) = (selectedCharacters[j], selectedCharacters[i]);
+    }
+
+    // Fill the order array with the selected characters
+    for (uint i = 0; i < numSelections; i++) {
+        _order[i] = selectedCharacters[i];
+    }
+    }
   function setGameOrder(Level _userlevel) internal view returns (uint[] memory _correctorder) {
     uint[] memory _characters = setLevelOrdering(_userlevel);
 

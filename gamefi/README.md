@@ -64,3 +64,10 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+
+### GAME CONTRACT : https://sepolia.basescan.org/address/0x6f8c415c303c1f1a49ec98d317e592905586dc4d#code
+
+### REWARD ERC20 TOKEN: https://sepolia.basescan.org/address/0x65227812bee0225d3b5e3c7cc9d2e14d083cf0f9
+
+### NFT TOKEN REWARD : https://sepolia.basescan.org/address/0x08538806b86819e293418fe24b14749038f3781d
