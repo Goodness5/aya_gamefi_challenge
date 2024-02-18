@@ -345,22 +345,25 @@ contract Game is Ownable {
             }
 
             // Calculate the array length within the defined range
-            uint arraylength = (block.number % (maxRange - minRange + 1)) +
-                minRange;
+         uint arrayLength = getRandomNumber(minRange, maxRange);
 
-            _correctorder = new uint[](arraylength);
-            for (uint i = 0; i < arraylength; i++) {
+            _correctorder = new uint[](arrayLength);
+            for (uint i = 0; i < arrayLength; i++) {
                 _correctorder[i] = _characters[i % _characters.length];
             }
             return _correctorder;
         }
 
+function getRandomNumber(uint min, uint max) internal view returns (uint) {
+    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % (max - min + 1) + min;
+}
 
 
  function stakeReward() public returns(uint) {
     
     PlayerDetails storage _user = Playerdetails[msg.sender];
     // Approve the transfer of tokens to the StakingContract
+    require(_user._rewardBalance > 0, "staking empty value not allowed");
     require(IERC20(rewardToken).approve(stakeAddress, _user._rewardBalance), "Approval failed");
 
     // Call the stake function of the StakingContract
