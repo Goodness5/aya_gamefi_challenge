@@ -62,7 +62,7 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
          Optionally, Ultimate Galaxy Search Tokens (UGST) can be staked for as long as you want to obtain more UGST. To stake, connect wallet and click on the "Stake reward" button on the 
          upper right of the screen. It will pop-up the staking dApp. Input the amount to stake and click on the "Stake" button, then sign the transaction with your wallet. Unstaking before 
-         a three month period will cost you 10% of your staked amount with no reward.
+         a 30 day period will cost you 10% of your staked amount with no reward.
          </div>
          </div>)
          }
