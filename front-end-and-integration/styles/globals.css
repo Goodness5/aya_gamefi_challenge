@@ -28,16 +28,14 @@ body{background-color: #000; color:#fff}
 @keyframes stakecoinanimation {100%{transform: rotate3d(0,0,1,360deg);}}
 .stakecoinimg{animation: stakecoinanimation 2s linear infinite;}
 
-@keyframes displayAnimation1 {0%{display: block;} 19%{display: block;} 20%{display: none;}  100%{display: none;}}
-@keyframes displayAnimation2 {0%{display: none;}  20%{display: none} 21%{display: block;} 39%{display: block;} 40%{display: none;} 100%{display: none;}}
-@keyframes displayAnimation3 {0%{display: none;}  40%{display: none;} 41%{display: block;} 59%{display: block} 60%{display: none} 100%{display: none;}}
-@keyframes displayAnimation4 {0%{display: none;}  60%{display: none;} 61%{display: block;} 79%{display: block} 80%{display: none} 100%{display: none;}}
-@keyframes displayAnimation5 {0%{display: none;}  80%{display: none;} 81%{display: block;} 100%{display: block;}}
+@keyframes displayAnimation1 {0%{display: block;} 24%{display: block;} 25%{display: none;}  100%{display: none;}}
+@keyframes displayAnimation2 {0%{display: none;}  24%{display: none} 25%{display: block;} 50%{display: block;} 51%{display: none;} 100%{display: none;}}
+@keyframes displayAnimation3 {0%{display: none;}  50%{display: none;} 51%{display: block;} 75%{display: block} 76%{display: none} 100%{display: none;}}
+@keyframes displayAnimation4 {0%{display: none;}  75%{display: none;} 76%{display: block;} 100%{display: block;}}
 .slideimg1{animation: displayAnimation1 30s linear infinite;}
 .slideimg2{animation: displayAnimation2 30s linear infinite;}
 .slideimg3{animation: displayAnimation3 30s linear infinite;}
 .slideimg4{animation: displayAnimation4 30s linear infinite;}
-.slideimg5{animation: displayAnimation5 30s linear infinite;}
 
 @media screen and (min-width:1007px){
     .maindiv{background-size: 120%; background-position-x: 50%; padding-bottom: 50%; background-repeat: no-repeat;}

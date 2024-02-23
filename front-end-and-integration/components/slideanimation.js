@@ -37,8 +37,5 @@ export default function SlideAnimation() {
       <span className='px-[1cm] py-[0.5cm] bg-[rgba(0,0,0,0.7)]' style={{border:"2px solid #502"}}>Legendary</span>
     </div>
     </div>
-    <div data-aos="fade-in" className='slideimg5' style={{transition:"0.5s ease-in-out"}}>
-    <img src="images/groupheroes.jpg" className='w-[100%]' style={{boxShadow:"2px 2px 8px 2px rgba(0,0,0,0.7)"}} />
-    </div>
    </div>
 )}
