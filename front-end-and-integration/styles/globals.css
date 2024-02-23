@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{background-color: #000; color:#fff}
+.character{transition: 0.3s ease-in-out; box-shadow: 2px 2px 4px 2px #502;}
+.character:hover{transform: scale3d(1.05,1.05,1.05); box-shadow: 2px 2px 4px 2px #ccc;}
+.characterdiv{transition: 0.3s ease-in-out;}
+.charactername{box-shadow: 2px 2px 4px 1px #fff; display: none; transition: 0.3s ease-in-out;}
+.characterdiv:hover .charactername{display: block; transform: translate3d(0,-200%,0); margin-bottom: -2cm;}
+
+@keyframes gamelogoanimation{0%{} 100%{box-shadow: 2px 2px 7px 4px #fff;}}
+.gamelogo{animation: gamelogoanimation 1s alternate infinite;}
+.navbutton{transition: 0.3s ease-in-out; box-shadow: 2px 2px 5px 2px rgba(0,0,0,0.7);}
+.navbutton:hover{color: #000; background: #eee; box-shadow: 2px 2px 3px 2px #502; transform: scale3d(0.95,0.95,0.95);}
+.cancelnavbutton{transition: 0.3s ease-in-out;}
+.cancelnavbutton:hover{transform: scale3d(1.15,1.15,1.15); box-shadow: 2px 2px 5px 2px #502;}
+
+.connectwalletbutton{transition: 0.3s ease-in-out;}
+.connectwalletbutton:hover{background: #002;}
+
+.disconnectwalletbutton{transition: 0.3s ease-in-out;}
+.disconnectwalletbutton:hover{background-color: #001;}
+
+.stakebutton{transition: 0.3s ease-in-out; box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.7);}
+.stakebutton:hover{color: #000; background: #eee; box-shadow: 1px 1px 2px 1px #502; transform: scale3d(0.95,0.95,0.95);}
+
+@keyframes stakecoinanimation {100%{transform: rotate3d(0,0,1,360deg);}}
+.stakecoinimg{animation: stakecoinanimation 2s linear infinite;}
+
+@keyframes displayAnimation1 {0%{display: block;} 19%{display: block;} 20%{display: none;}  100%{display: none;}}
+@keyframes displayAnimation2 {0%{display: none;}  20%{display: none} 21%{display: block;} 39%{display: block;} 40%{display: none;} 100%{display: none;}}
+@keyframes displayAnimation3 {0%{display: none;}  40%{display: none;} 41%{display: block;} 59%{display: block} 60%{display: none} 100%{display: none;}}
+@keyframes displayAnimation4 {0%{display: none;}  60%{display: none;} 61%{display: block;} 79%{display: block} 80%{display: none} 100%{display: none;}}
+@keyframes displayAnimation5 {0%{display: none;}  80%{display: none;} 81%{display: block;} 100%{display: block;}}
+.slideimg1{animation: displayAnimation1 30s linear infinite;}
+.slideimg2{animation: displayAnimation2 30s linear infinite;}
+.slideimg3{animation: displayAnimation3 30s linear infinite;}
+.slideimg4{animation: displayAnimation4 30s linear infinite;}
+.slideimg5{animation: displayAnimation5 30s linear infinite;}
+
+@media screen and (min-width:1007px){
+    .maindiv{background-size: 120%; background-position-x: 50%; padding-bottom: 50%; background-repeat: no-repeat;}
+}
+@media screen and (max-width:1007px){
+    .maindiv{background-position-x: 40%; padding-bottom: 100%; background-repeat: no-repeat;}
+}
+
+ @keyframes dAppAnimation{0%{} 100%{box-shadow: 2px 2px 7px 2px #502;}}
+ .dAppdiv{animation: dAppAnimation 2s alternate infinite;}
+
+ .switchbutton{transition: 0.5s ease-in-out;}
+ .switchbutton:hover{transform: rotate3d(0,0,1,180deg); font-size: 90%; background: #eee; color: #502;}
