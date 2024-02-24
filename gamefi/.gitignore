@@ -1,0 +1,18 @@
+# Compiler files
+cache/
+out/
+
+# Ignores development broadcast logs
+/broadcast/*/31337/
+/broadcast/**/dry-run/
+/broadcast/
+/broadcast
+
+# temp files
+/src/test.sol
+# Docs
+docs/
+lib/openzeppelin-contracts/
+
+# Dotenv file
+.env

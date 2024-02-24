@@ -1,0 +1,6 @@
+[submodule "gamefi/lib/forge-std"]
+	path = gamefi/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "gamefi/lib/openzeppelin-contracts"]
+	path = gamefi/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
