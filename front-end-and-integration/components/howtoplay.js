@@ -25,11 +25,11 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          }
          </div>
          <div className='mb-[0.5cm]'>
-         {instruction2 ? (<div onClick={(e) => setInstruction2(false)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Base Sepolia test ETH for gas fees</span><img src="images/add.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>) :
+         {instruction2 ? (<div onClick={(e) => setInstruction2(false)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Base Sepolia test ETH for gas</span><img src="images/add.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>) :
          (<div className='pb-[0.5cm]' style={{borderBottom:"2px ridge #502"}}>
-         <div onClick={(e) => setInstruction2(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Base Sepolia test ETH for gas fees</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
+         <div onClick={(e) => setInstruction2(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Base Sepolia test ETH for gas</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
-          With Ultimate Galaxy Search being an on-chain game, Base Sepolia test ETH would be required to pay gas fees for transactions. Base Sepolia can be found on the Base Sepolia faucet.
+          With Ultimate Galaxy Search being an on-chain game, Base Sepolia test ETH would be required to pay gas fees for transactions. Base Sepolia ETH can be found on the Base Sepolia faucet.
          </div>
          </div>)
          }
@@ -39,8 +39,9 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          (<div className='pb-[0.5cm]' style={{borderBottom:"2px ridge #502"}}>
          <div onClick={(e) => setInstruction3(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Start game</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
-          Click on the "Start game" button after connecting wallet to start game. While playing the game, guess the appropriate super hero or villain. Select as much as you want while the timeout feature is running. Immediately your time is up, your game will end. A screen will pop-up 
-          prompting you to sign the transaction to submit your score. Your score will be displayed according to your correct number of guesses. If you pass the current stage, you will be upgraded to the next level.
+          Click on the "Start game" button after connecting wallet to start game. While playing the game, guess the appropriate super hero or villain. Select as much as required while the timeout feature is running. Immediately your time is up, your game will end. A button will pop-up 
+          prompting you to submit chosen characters and sign the transaction to determine your score. Your score will be displayed according to your correct number of guesses. If you pass the current stage, you will be upgraded to the next level. Each level has at least 10 sub-levels. Typically, your score is 
+          displayed in an event handler on the screen after submitting the characters and signing the transaction. Please sign all transactions that pop-up while playing the game.
          </div>
          </div>)
          }
@@ -50,7 +51,8 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          (<div className='pb-[0.5cm]' style={{borderBottom:"2px ridge #502"}}>
          <div onClick={(e) => setInstruction4(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Reward system</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
-         For every stage passed, you will be rewarded with in-game tokens (UGST). You also get to be rewarded with Ultimate Galaxy Search NFTs for specific levels attained.
+         For every stage passed, you will be rewarded with in-game tokens (UGST). You also get to be rewarded with Ultimate Galaxy Search NFTs for specific levels attained. To get your accumulated 
+         token rewards, click on the "Withdraw reward" button at the upper right of the screen.
          </div>
          </div>)
          }
@@ -61,8 +63,8 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          <div onClick={(e) => setInstruction5(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Stake reward</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
          Optionally, Ultimate Galaxy Search Tokens (UGST) can be staked for as long as you want to obtain more UGST. To stake, connect wallet and click on the "Stake reward" button on the 
-         upper right of the screen. It will pop-up the staking dApp. Input the amount to stake and click on the "Stake" button, then sign the transaction with your wallet. Unstaking before 
-         a 30 day period will cost you 10% of your staked amount with no reward.
+         upper right of the screen. It will pop-up the staking dApp. Input the amount to stake and click on the "Stake" button, then sign the transaction with your wallet (firstly approve, then stake). Unstaking before 
+         a 30 day period will cost you 10% of your staked amount with no reward. You also have an option to withdraw staking rewards after 30 days.
          </div>
          </div>)
          }

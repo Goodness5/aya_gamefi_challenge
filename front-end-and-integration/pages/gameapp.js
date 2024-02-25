@@ -104,6 +104,7 @@ useEffect(() => {
       setwonderwoman(null);setwolverine(null);setdarkseid(null);
       setGreenLantern(null);setAquaman(null);setMartianManhunter(null);setThor(null);setHulk(null);setLoki(null);setDoctorDoom(null);setApocalypse(null);
       setJoker(null);setLexLuthor(null);setSuperman(null);
+      
     setTimeout(()=> {
         setStartGame(false)
         setSendValues(true)
@@ -112,7 +113,7 @@ useEffect(() => {
       gameOnAudio.pause();
       gameOnAudio.currentTime = 0; // Reset the audio to the beginning
       gameOnAudio.remove();
-    }, 30000)}
+    }, 60000)}
     
     else {
         setConnectNotification(true)
@@ -128,7 +129,7 @@ useEffect(() => {
 
     const countdownInterval = () => {
         if (connectedWallet){
-      setCount(30); // Reset the count to 30 when the function is called again
+      setCount(60); // Reset the count to 60 when the function is called again
     
       calculateInterval = setInterval(() => {
         setCount((prevCount) => {
@@ -250,10 +251,10 @@ useEffect(() => {
             const [Supermanblur, setSupermanblur] = useState("blur(7px)")
       
       
-            //Contract addresses, RPC and their settings to write and read from contracts
+            //Contract addresses, RPC and their settings to write to and read from contracts
             const BaseSepoliaRPC = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qI8bxNGIpzU-b3LNo8LbOvPUf_VRgbiu");
             //For Game contract
-            const gameContractAddress = "0x1b0136cDC660Ca092C6939A58E63Ef4a7123fA47"
+            const gameContractAddress = "0xBA74B18f0a0DAb15Ae9F6f89651ddb415a3AF6BD"
             const gameContractABI = [
               {
                 inputs: [
@@ -319,7 +320,7 @@ useEffect(() => {
                 ],
                 name: "StartGame",
                 outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-                stateMutability: "payable",
+                stateMutability: "nonpayable",
                 type: "function",
               },
               {
@@ -330,19 +331,19 @@ useEffect(() => {
                 type: "function",
               },
               {
-                inputs: [
-                  { internalType: "enum Game.Level", name: "_userlevel", type: "uint8" },
+                inputs: [{ internalType: "address", name: "_player", type: "address" }],
+                name: "getnumberofinput",
+                outputs: [
+                  { internalType: "uint256", name: "_arraylength", type: "uint256" },
                 ],
-                name: "calculateNumCharacters",
-                outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-                stateMutability: "pure",
+                stateMutability: "view",
                 type: "function",
               },
               {
                 inputs: [{ internalType: "address", name: "_player", type: "address" }],
                 name: "getnumofinput",
-                outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-                stateMutability: "view",
+                outputs: [{ internalType: "uint256", name: "_number", type: "uint256" }],
+                stateMutability: "nonpayable",
                 type: "function",
               },
               {
@@ -385,15 +386,6 @@ useEffect(() => {
               },
               {
                 inputs: [
-                  { internalType: "enum Game.Level", name: "_userlevel", type: "uint8" },
-                ],
-                name: "setLevelOrdering",
-                outputs: [{ internalType: "uint256[]", name: "_order", type: "uint256[]" }],
-                stateMutability: "view",
-                type: "function",
-              },
-              {
-                inputs: [
                   { internalType: "address", name: "", type: "address" },
                   { internalType: "enum Game.Level", name: "", type: "uint8" },
                 ],
@@ -424,10 +416,11 @@ useEffect(() => {
                 type: "function",
               },
               { stateMutability: "payable", type: "receive" },
-            ];         
+            ];          
             const readGameContractSettings = new ethers.Contract(gameContractAddress, gameContractABI, BaseSepoliaRPC)
+
             //for reward contract
-            const rewardContractAddress = "0xfB6D83F73f16FB1bC7D5C1f71fd5715793Bd9117" 
+            const rewardContractAddress = "0x33252Ae7f597FF190C83B9Ac567923F985844cf9" 
             const rewardContractABI = [
               {
                 inputs: [
@@ -650,10 +643,11 @@ useEffect(() => {
                 stateMutability: "nonpayable",
                 type: "function",
               },
-            ];
+            ]; 
             const readRewardContractSettings = new ethers.Contract(rewardContractAddress, rewardContractABI, BaseSepoliaRPC)
+
             //for NFT contract
-            const nftContractAddress = "0x76Bc0CE24c89A56b5DE7E2f0637F9b69555dA7cB" 
+            const nftContractAddress = "0xAbb27ea9a6bc4e91B8C15BbF52bd8b49A2c624ae" 
             const nftContractABI = [
               {
                 inputs: [
@@ -951,10 +945,11 @@ useEffect(() => {
                 stateMutability: "nonpayable",
                 type: "function",
               },
-            ];
+            ];        
             const readNFTContractSettings = new ethers.Contract(nftContractAddress, nftContractABI, BaseSepoliaRPC)
+
             //for staking contract
-            const stakeContractAddress = "0x965821FD37ea838e968B1465A5EC8f7eAbd583D4" 
+            const stakeContractAddress = "0xC2015fFfD3BaEF88Aa011766836C5733AaD3349B" 
             const stakeContractABI = [
               {
                 inputs: [
@@ -1110,14 +1105,13 @@ useEffect(() => {
                 stateMutability: "view",
                 type: "function",
               },
-            ];
+            ];   
             const readStakeContractSettings = new ethers.Contract(stakeContractAddress, stakeContractABI, BaseSepoliaRPC)
 
            //functions to read from contracts
            const [PLayerLevel, setPlayerLevel] = useState("Beginner I")
            const [playerRewardBalance, setplayerRewardBalance] = useState()
-           const [playerStakedBalance, setplayerStakedBalance] = useState()
-           const [numberOfInputs, setnumberOfInputs] = useState(false)
+           const [playerStakingReward, setPlayerStakingReward] = useState()
            useEffect(()=> {
            const readFromContracts = async () => {
             try {
@@ -1391,23 +1385,17 @@ useEffect(() => {
               const rewardBalanceToFix = isNaN(parsedRewardBalance) ? 0 : (parsedRewardBalance).toFixed(2);
               setplayerRewardBalance(rewardBalanceToFix)
 
-              const readPlayerStakedBalance = await readStakeContractSettings.calcReward();
-              const convertedreadPlayerStakedBalance = readPlayerStakedBalance.toString()
-              const parsedStakedBalance = parseFloat(convertedreadPlayerStakedBalance)
-              const stakedBalanceToFix = isNaN(parsedStakedBalance) ? 0 : (parsedStakedBalance).toFixed(2);
-              setplayerStakedBalance(stakedBalanceToFix)
-
-              const readNumberOfInputs = await readGameContractSettings.getnumofinput(theWalletAddress);
-              const convertedNumOfInputs = readNumberOfInputs.toString()
-              setnumberOfInputs(convertedNumOfInputs)
-              
-
+              const readPlayerStakingReward = await readStakeContractSettings.calcReward();
+              const convertedreadPlayerStakingReward = readPlayerStakingReward.toString()
+              const parsedStakingReward = parseFloat(convertedreadPlayerStakingReward)
+              const stakingRewardToFix = isNaN(parsedStakingReward) ? 0 : (parsedStakingReward).toFixed(2);
+              setPlayerStakingReward(stakingRewardToFix)   
             } catch (error) {
               console.log(error) 
             }
            }
             readFromContracts();
-             }, [readGameContractSettings, readRewardContractSettings, readStakeContractSettings, setPlayerLevel, setplayerRewardBalance, setplayerStakedBalance, setnumberOfInputs])
+             }, [readGameContractSettings, readRewardContractSettings, readStakeContractSettings, setPlayerLevel, setplayerRewardBalance, setPlayerStakingReward])
 
           
            //function to write to the game contract and send game values to the blockchain
@@ -1436,6 +1424,31 @@ useEffect(() => {
             }
            }
            }  
+
+           //Get number of inputs for player using write and read functions
+           const [numberOfInputs, setnumberOfInputs] = useState(false)
+           const writeToGetNumberOfInputs = async () => {
+            if (connectedWallet){
+              const ethereum = (window).ethereum;
+              const accounts = await ethereum.request({
+                   method: "eth_requestAccounts",
+               })
+                // first account in MetaMask
+               const walletAddress = accounts[0]; 
+               const provider = new ethers.providers.Web3Provider(ethereum);
+               const signer = provider.getSigner(walletAddress);
+               const gameContractWriteSettings = new ethers.Contract(gameContractAddress, gameContractABI, signer)
+               try {
+                const writeToGetNumberOfInputs = await gameContractWriteSettings.getnumofinput(theWalletAddress);
+                const readNumberOfInputs = await readGameContractSettings.getnumberofinput(theWalletAddress);
+                const convertedNumOfInputs = readNumberOfInputs.toString()
+                setnumberOfInputs(convertedNumOfInputs)
+                console.log(convertedNumOfInputs)
+               } catch (error) {
+                console.log(error)
+               }
+              }
+           }
            
            //function to withdraw accumulated game-play rewards
            const [withdrawNotification, setwithdrawNotification] = useState(false)
@@ -1479,8 +1492,8 @@ useEffect(() => {
      </div>
      {connectedWallet ? (<span className='float-right clear-both lg:mb-[1cm] mb-[0.7cm] bg-[rgba(0,0,20,0.7)] p-[0.5cm] rounded-md mr-[0.1cm]' style={{boxShadow:"2px 2px 3px 1px #502"}}>
         <div className='py-[0.1cm] px-[0.3cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Level <i className='fa fa-chevron-down text-[80%] mr-[0.1cm]'></i></span> {PLayerLevel} </div>
-        <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Reward <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerRewardBalance} UGST</div>
-        <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Staked balance <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerStakedBalance} UGST</div>
+        <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Balance <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerRewardBalance} UGST</div>
+        <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Staking reward <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerStakingReward} UGST</div>
         {startGame ? (<div></div>) : (<span><button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.1cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & withdrawGameplayRewards(e)}>Withdraw reward <img src="images/withdrawal.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button> <br />
         {withdrawNotification ? (<div data-aos="zoom-in" className='text-center text-[#fff] mt-[0.2cm] m-[auto]'>No withdrawable rewards <span><img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<span></span>)}
         <button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.2cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & setStaking(true)}>Stake/unstake reward <img src="images/coin.png" width="20" className='ml-[0.2cm] stakecoinimg' style={{display:"inline-block"}} /></button></span>)}
@@ -1489,12 +1502,12 @@ useEffect(() => {
         <span className='p-[0.4cm] rounded-[100%] fa-fade bg-[#fff] text-[#502]' style={{border:"2px solid #502", transition:"0.2s ease-in-out"}}>{count}</span>
      </div>) :
      (<div className='text-center clear-both'>
-     <button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & playAndUpdateGame(e) & countdownInterval(e)}>Start game <img src="images/game-controller.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>
+     <button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & playAndUpdateGame(e) & countdownInterval(e) & writeToGetNumberOfInputs(e)}>Start game <img src="images/game-controller.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>
      {sendValues ? (<button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & sendGameValues(e)}>Submit characters<img src="images/superhero.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>) : (<span></span>)}
      <button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & setHowToPlay(true)}>How to play <img src="images/play.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>
      {connectNotification ? (<div data-aos="slide-up" className='text-[#fff] mt-[0.1cm] font-[500]'>Please connect wallet! <span><img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
      </div>)}
-     {numberOfInputs && connectedWallet ? (<div className='text-center mt-[0.5cm] text-[120%]'><span>Select {numberOfInputs} characters from the list</span><span><img src="images/info.png" className='ml-[0.2cm]' width="20" style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
+     {numberOfInputs && connectedWallet && startGame ? (<div className='text-center mt-[0.5cm] text-[120%]'><span>Select {numberOfInputs} characters from the list <span className='text-[#999]'>(typically 3 to 5)</span></span><span><img src="images/info.png" className='ml-[0.2cm]' width="20" style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
      </div>
 
     {howToPlay ? 
@@ -1510,7 +1523,7 @@ useEffect(() => {
       (<div className='bg-[rgba(0,0,0,0.9)] w-[100%] mx-[-5%] lg:pb-[100%] pb-[200%] top-0' style={{position:"absolute", zIndex:"9999"}}>
       <div data-aos="zoom-out" className='lg:mx-[30%] md:mx-[25%] mx-[5%]'>
       <img src="images/cancel.png" width="40" className='m-[auto] lg:mt-[12%] md:mt-[15%] mt-[25%] cursor-pointer cancelnavbutton rounded-[100%]' onClick={(e) => buttonsAudio(e) & setStaking(false)} />
-      <Dapp buttonsAudio={buttonsAudio}/>
+      <Dapp buttonsAudio={buttonsAudio} playerRewardBalance={playerRewardBalance} stakeContractAddress={stakeContractAddress} stakeContractABI={stakeContractABI} rewardContractAddress={rewardContractAddress} rewardContractABI={rewardContractABI} setStaking={setStaking} playerStakingReward={playerStakingReward}/>
       </div>
       </div>) : 
       (<div></div>)

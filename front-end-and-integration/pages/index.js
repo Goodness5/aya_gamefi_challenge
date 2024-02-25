@@ -50,6 +50,12 @@ return homePageMusic();
   //stop navigation to game app
   const stopNav = () => {
     setAllowAutoNav(false)
+    const audio = new Audio("sounds/navsounds.mp3")
+    audio.play().catch(error => {
+      // Handle autoplay error (e.g., due to browser restrictions)
+      console.error('Autoplay error:', error);
+    });
+    audio.volume = 1
   }
 
   // function to set display property of navigation div
