@@ -39,9 +39,11 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
          (<div className='pb-[0.5cm]' style={{borderBottom:"2px ridge #502"}}>
          <div onClick={(e) => setInstruction3(true)} className='lg:text-[120%] md:text-[120%] text-[110%] font-[500] cursor-pointer'><img src="images/dot.png" width="20" className='mr-[0.2cm]' style={{display:"inline-block"}} /><span>Start game</span><img src="images/crossed.png" width="25" className='float-right' style={{display:"inline-block"}} /></div>
          <div data-aos="slide-down" className='text-[#002] ml-[1cm] mt-[0.3cm]'>
-          Click on the "Start game" button after connecting wallet to start game. While playing the game, guess the appropriate super hero or villain. Select as much as required while the timeout feature is running. Immediately your time is up, your game will end. A button will pop-up 
-          prompting you to submit chosen characters and sign the transaction to determine your score. Your score will be displayed according to your correct number of guesses. If you pass the current stage, you will be upgraded to the next level. Each level has at least 10 sub-levels. Typically, your score is 
-          displayed in an event handler on the screen after submitting the characters and signing the transaction. Please sign all transactions that pop-up while playing the game.
+          Click on the "Start game" button after connecting wallet to start game. While playing the game, guess the appropriate super hero or villain. Select as much as required
+          while the timeout feature is running. Immediately your time is up, your game will end. A button will pop-up prompting you to submit chosen characters and sign the 
+          transaction to determine your reward. Your reward will be allocated according to your correct number of guesses. If you pass the current stage, you will be upgraded 
+          to the next level. Each level has at least 10 sub-levels. Typically, your reward is allocated after submitting the characters and signing the transaction. Please sign
+           all transactions that pop-up while playing the game.
          </div>
          </div>)
          }
