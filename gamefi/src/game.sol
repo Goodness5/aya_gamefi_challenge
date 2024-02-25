@@ -55,6 +55,7 @@ contract Game is Ownable {
         uint _scorestreak;
         uint _rewardBalance;
         uint[] _correctorder;
+        uint _noofinput;
     }
 
     uint LastLegendaryBadgeId;
@@ -70,6 +71,7 @@ contract Game is Ownable {
     mapping(address => mapping(Level => uint)) public specificLevel;
 
     event BadgeIssued(address indexed player, uint timestamp);
+    event startGame(address indexed player, uint indexed _score, uint _rewardbalance);
 
     modifier correctLevel(address _player, Level _level) {
         // PlayerDetails storage _initplayer = Playerdetails[_player];
@@ -89,44 +91,53 @@ contract Game is Ownable {
         rewardToken = _rewardtoken;
     }
 
-    function getnumofinput(address _player) public view returns (uint) {
-        Level _userlevel = Playerdetails[_player]._playerLevel;
-        uint minRange;
-        uint maxRange;
+function getnumberofinput(address _player) view public returns (uint _arraylength){
+        PlayerDetails storage _user = Playerdetails[_player];
+        _arraylength = _user._noofinput;
+        
+}
+function getnumofinput(address _player) public returns(uint _number) {
+    Level _userlevel = Playerdetails[_player]._playerLevel;
+    uint minRange;
+    uint maxRange;
 
-        if (
-            _userlevel == Level.BeginnerI ||
-            _userlevel == Level.BeginnerII ||
-            _userlevel == Level.BeginnerIII ||
-            _userlevel == Level.BeginnerIV
-        ) {
-            minRange = 3;
-            maxRange = 5;
-        } else if (
-            _userlevel == Level.EliteI ||
-            _userlevel == Level.EliteII ||
-            _userlevel == Level.EliteIII ||
-            _userlevel == Level.EliteIV
-        ) {
-            minRange = 5;
-            maxRange = 7;
-        } else if (
-            _userlevel == Level.MasterI ||
-            _userlevel == Level.MasterII ||
-            _userlevel == Level.MasterIII ||
-            _userlevel == Level.MasterIV
-        ) {
-            minRange = 7;
-            maxRange = 9;
-        } else if (_userlevel == Level.Legendary) {
-            // Define the range for Legendary level
-            minRange = 9;
-            maxRange = 15;
-        }
-        uint arrayLength = getRandomNumber(minRange, maxRange);
-
-        return arrayLength;
+    if (
+        _userlevel == Level.BeginnerI ||
+        _userlevel == Level.BeginnerII ||
+        _userlevel == Level.BeginnerIII ||
+        _userlevel == Level.BeginnerIV
+    ) {
+        minRange = 3;
+        maxRange = 5;
+    } else if (
+        _userlevel == Level.EliteI ||
+        _userlevel == Level.EliteII ||
+        _userlevel == Level.EliteIII ||
+        _userlevel == Level.EliteIV
+    ) {
+        minRange = 5;
+        maxRange = 7;
+    } else if (
+        _userlevel == Level.MasterI ||
+        _userlevel == Level.MasterII ||
+        _userlevel == Level.MasterIII ||
+        _userlevel == Level.MasterIV
+    ) {
+        minRange = 7;
+        maxRange = 9;
+    } else if (_userlevel == Level.Legendary) {
+        // Define the range for Legendary level
+        minRange = 9;
+        maxRange = 15;
     }
+    
+    uint arrayLength = getRandomNumber(minRange, maxRange);
+
+    Playerdetails[_player]._noofinput = arrayLength;
+
+    _number = arrayLength;
+}
+
 
     function getplayerLevel() public view returns (Level level, uint stage) {
         PlayerDetails storage _user = Playerdetails[msg.sender];
@@ -134,21 +145,22 @@ contract Game is Ownable {
         stage = specificLevel[msg.sender][level];
     }
 
-    function StartGame(uint[] memory _userguess) public returns (uint) {
-        uint char = getnumofinput(msg.sender);
-        require(_userguess.length==char, "array length invalid");
-        PlayerDetails storage _user = Playerdetails[msg.sender];
-        // userOrdering[msg.sender] = _userguess;
-        uint[] memory _order = setGameOrder(_user._playerLevel, msg.sender);
-        uint correctguess = validateOrdering(_userguess, _order);
-        increaseLevel(msg.sender, correctguess);
-        _user._correctorder = _order;
-        return correctguess;
-    }
+function StartGame(uint[] memory _userguess) public returns (uint) {
+    
+    PlayerDetails storage _user = Playerdetails[msg.sender];
+    // require(_userguess.length == _user._noofinput, "array length invalid");
+    uint[] memory _order = setGameOrder(_user._playerLevel, msg.sender);
+    uint correctGuess = validateOrdering(_userguess, _order);
+    increaseLevel(msg.sender, correctGuess);
+    _user._correctorder = _order;
+    emit startGame(msg.sender, correctGuess, _user._rewardBalance);
+    return correctGuess;
+}
+
 
     function calculateNumCharacters(
         Level _userlevel
-    ) public pure returns (uint) {
+    ) internal pure returns (uint) {
         uint baseNumCharacters = 3; // Starting number of characters
         uint incrementFactor = 2; // Factor by which the number of characters increases per level
         uint numCharacters = incrementFactor *
@@ -263,7 +275,7 @@ function validateOrdering(
     // Function to set characters for each level
     function setLevelOrdering(
         Level _userlevel
-    ) public view returns (uint[] memory _order) {
+    ) internal pure returns (uint[] memory _order) {
         uint numSelections = calculateNumCharacters(_userlevel);
 
         _order = new uint[](numSelections);
@@ -361,7 +373,7 @@ function validateOrdering(
     ) internal view returns (uint[] memory _correctorder) {
         uint[] memory _characters = setLevelOrdering(_userlevel);
 
-        uint arrayLength = getnumofinput(_player);
+        uint arrayLength = Playerdetails[_player]._noofinput;
         // Create _correctorder array with the determined length
         _correctorder = new uint[](arrayLength);
 
@@ -413,4 +425,10 @@ function validateOrdering(
         _user._rewardBalance = 0;
         return stakedamount;
     }
+
+        
+    receive() external payable {}
+
+    
+    fallback() external payable {}
 }

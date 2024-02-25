@@ -1,112 +1,174 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.17;
+import {IERC20} from "./interface.sol";
+import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
-import "../lib//openzeppelin-contracts/contracts/access/Ownable.sol";
-import "../lib//openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
+//users stake stakableTokens
+//user get 20% APY CVIII as reward;
+// token ratio 1: 1
 
-contract StakingContract is Ownable {
+contract StakERC20 is Ownable {
+    IERC20 public rewardToken;
+    IERC20[] public stakableTokens;
+    
 
-    constructor(address _initialowner) Ownable(_initialowner) {}
+    uint256 constant SECONDS_PER_YEAR = 31536000;
+    uint256 constant PENALTY_RATE = 10;
 
-    struct TokenData {
-        address tokenAddress;
-        uint256 rewardRate; 
-        uint256 lastUpdateTime;
-        uint256 rewardPerTokenStored;
-        uint256 totalBalance; 
-    }
-
-    struct Stake {
-        uint256 amount;
+    struct User {
+        uint256 stakedAmount;
         uint256 startTime;
-        TokenData token;
-    }
-    mapping(address => Stake) stakes;
-
-    mapping(address => TokenData) public tokens;
-
-    event Staked(address indexed user, address indexed token, uint256 amount);
-    event Withdrawn(address indexed user, address indexed token, uint256 amount);
-    event RewardPaid(address indexed user, address indexed token, uint256 reward);
-
-    function stake(address token, address _staker, uint256 amount) public returns(uint) {
-        require(amount > 0, "Amount must be greater than 0");
-        TokenData storage tokenData = tokens[token];
-        require(tokenData.tokenAddress != address(0), "Token not supported");
-        require(
-            IERC20(token).transferFrom(_staker, address(this), amount),
-            "Transfer failed"
-        );
-
-        _updateReward(token, _staker);
-        stakes[_staker].amount += amount;
-
-        tokenData.totalBalance += amount; 
-
-        stakes[_staker].startTime = block.timestamp;
-
-        emit Staked(msg.sender, token, amount);
-        return amount;
+        uint256 rewardAccrued;
+        IERC20 stakeToken;
     }
 
-    function withdraw(address token) external {
-        Stake storage userStake = stakes[msg.sender];
-        require(userStake.amount > 0, "No stake to withdraw");
+    mapping(address => User) user;
+    error tryAgain();
 
-        _updateReward(token, msg.sender);
-
-        uint256 amount = userStake.amount;
-        delete stakes[msg.sender];
-
-        require(IERC20(token).transfer(msg.sender, amount), "Transfer failed");
-
-        TokenData storage tokenData = tokens[token];
-        tokenData.totalBalance -= amount; 
-
-        emit Withdrawn(msg.sender, token, amount);
+    constructor(address _rewardToken) Ownable(msg.sender) {
+        rewardToken = IERC20(_rewardToken);
+    
     }
 
-    function getReward(address token) external {
-        TokenData storage tokenData = tokens[token];
-        _updateReward(token, msg.sender);
-
-        uint256 reward = stakes[msg.sender].amount *
-            (tokenData.rewardPerTokenStored - stakes[msg.sender].startTime) /
-            tokenData.rewardRate;
-        require(reward > 0, "No reward to claim");
-
-        tokenData.rewardPerTokenStored -= reward;
-        stakes[msg.sender].startTime = block.timestamp;
-
-        require(IERC20(token).transfer(msg.sender, reward), "Transfer failed");
-
-        emit RewardPaid(msg.sender, token, reward);
+       modifier isStakable(address token) {
+            require(_isStakable(token)==true, "token not stakable");
+            _;
     }
 
-    function _updateReward(address token, address user) internal {
-        TokenData storage tokenData = tokens[token];
-        tokenData.rewardPerTokenStored +=
-            (block.timestamp - tokenData.lastUpdateTime) *
-            tokenData.rewardRate /
-            stakes[user].amount;
-        tokenData.lastUpdateTime = block.timestamp;
-    }
+function setStakeToken(address _token)
+    external
+    returns (address _newToken)
+{
+    require(_isStakable(_token) == false, "token already stakable");
+    require(IERC20(_token) != rewardToken, "cannot stake reward");
+    require(_token != address(0), "cannot set address zero");
 
-    function addToken(address token, uint256 rewardRate, uint256 initialDepositAmount) external onlyOwner {
-        require(token != address(0), "Invalid address");
-        require(rewardRate > 0, "Reward rate must be greater than 0");
-        require(tokens[token].tokenAddress == address(0), "Token already added");
+    _newToken = address(IERC20(_token));
+    stakableTokens.push(IERC20(_token));
 
-        tokens[token] = TokenData(token, rewardRate, block.timestamp, 0, 0);
-
-        if (initialDepositAmount > 0) {
-            require(
-                IERC20(token).transferFrom(msg.sender, address(this), initialDepositAmount),
-                "Transfer failed"
-            );
-            stakes[owner()].amount += initialDepositAmount;
-            stakes[owner()].startTime = block.timestamp;
-            tokens[token].totalBalance += initialDepositAmount; 
+    // Update the stakeToken for each user who has staked the token
+    for (uint256 i = 0; i < stakableTokens.length; i++) {
+        if (address(stakableTokens[i]) == _token) {
+            User storage _user = user[msg.sender];
+            _user.stakeToken = IERC20(_token);
         }
+    }
+}
+
+    function _isStakable(address token) internal view returns (bool) {
+        for (uint256 i = 0; i < stakableTokens.length; i++) {
+            if (address(stakableTokens[i]) == token) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function stake(address token, uint256 amount) external isStakable(token) {
+        User storage _user = user[msg.sender];
+        require(token != address(0), "address zero unstakabble");
+
+        IERC20(token).transferFrom(msg.sender, address(this), amount);
+
+        if (_user.stakedAmount == 0) {
+            _user.stakeToken = IERC20(token);
+            _user.stakedAmount = amount;
+            _user.startTime = block.timestamp;
+        } else {
+            require(token == address(_user.stakeToken), "user already staked a different token");
+            updateReward();
+            _user.stakedAmount += amount;
+        }
+    }
+ 
+
+    function addStakableToken(address token) public onlyOwner {
+        require(!_isStakable(token), "Token already stakable");
+        require(token != address(0), "cannot add address zero");
+        require(token != address(rewardToken), "cannot stake reward");
+
+        stakableTokens.push(IERC20(token));
+    }
+
+ function removeStakableToken(address token) external onlyOwner {
+    require(_isStakable(token), "Token not stakable");
+    for (uint256 i = 0; i < stakableTokens.length; i++) {
+        if (address(stakableTokens[i]) == token) {
+            if (i != stakableTokens.length - 1) {
+                stakableTokens[i] = stakableTokens[stakableTokens.length - 1];
+            }
+            stakableTokens.pop();
+            return;
+        }
+    }
+}
+
+
+
+    function calcReward() public view returns (uint256 _reward) {
+        User storage _user = user[msg.sender];
+        uint256 _amount = _user.stakedAmount;
+        uint256 _startTime = _user.startTime;
+        uint256 duration = block.timestamp - _startTime; 
+        _reward = (duration * 20 * _amount) / (SECONDS_PER_YEAR * 100);
+    }
+
+function claimReward() public {
+    User storage _user = user[msg.sender];
+    updateReward();
+
+    require(block.timestamp - _user.startTime >= 30, "stake duration less than a month");
+    uint256 currentTime = block.timestamp;
+
+
+    // require(_claimableReward >= amount, "insufficient funds");
+    _user.startTime = currentTime;
+    rewardToken.transfer(msg.sender, _user.rewardAccrued);
+    _user.rewardAccrued = 0;
+}
+
+
+    function updateReward() public {
+        User storage _user = user[msg.sender];
+        uint256 _reward = calcReward();
+        _user.rewardAccrued += _reward;
+        _user.startTime = block.timestamp;
+    }
+
+function unstake() public {
+    User storage _user = user[msg.sender];
+    uint256 staked = _user.stakedAmount;
+    require(staked > 0, "no staked amount");
+
+    updateReward();
+
+    uint256 penaltyAmount = 0;
+    uint256 currentTime = block.timestamp;
+    uint256 stakeDuration = currentTime - _user.startTime;
+
+    if (stakeDuration < 30 days) {
+        penaltyAmount = (staked) * PENALTY_RATE / 100;
+    }
+
+    // Calculate total amount to transfer to msg.sender (staked amount + reward)
+    uint256 totalAmount = staked + _user.rewardAccrued;
+
+    // Deduct 10% to keep
+    uint256 keepAmount = totalAmount * 10 / 100;
+    totalAmount -= keepAmount;
+
+    // Reset staked amount and reward accrued
+    _user.stakedAmount = 0;
+    _user.rewardAccrued = 0;
+
+    // Transfer total amount to msg.sender
+    require(_user.stakeToken.transfer(msg.sender, totalAmount), "transfer failed");
+}
+
+
+
+
+    function userInfo(address _user) external view returns (User memory) {
+        return user[_user];
     }
 }
