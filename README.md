@@ -1,4 +1,4 @@
-# Ultimate Galaxy Search Documentation [Web App](https://ultimategalaxysearch.vercel.app) [Demo Video](https://clinexapp.vercel.app)
+# Ultimate Galaxy Search Documentation [Web App](https://ultimategalaxysearch.vercel.app)
 This blockchain gaming project is built on the Base Sepolia Ethereum network from scratch using gamification concepts, gas optimisation concepts, solidity principles and front end technologies. With a combination of robust smart contracts and an intuitive design aiming for the best user interface and user experience, Ultimate Galaxy Search is the go-to area for blockchain play-to-earn, staking, dApp, ERC-20 and NFTs.
 
 ## About the Game
