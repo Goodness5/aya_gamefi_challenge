@@ -1149,39 +1149,241 @@ useEffect(() => {
               convertedPlayerLevel == "1,10"){
                 setPlayerLevel("Beginner II")
                 }
-                else if (convertedPlayerLevel == "2,0" || "2,1" || "2,2" || "2,3" || "2,4" || "2,5" || "2,6" || "2,7" || "2,8" || "2,9" || "2,10"){
-                  setPlayerLevel("Beginner III")
-                  }
-                  else if (convertedPlayerLevel == "3,0" || "3,1" || "3,2" || "3,3" || "3,4" || "3,5" || "3,6" || "3,7" || "3,8" || "3,9" || "3,10"){
-                    setPlayerLevel("Beginner IV")
-                    }
-                    else if (convertedPlayerLevel == "4,0" || "4,1" || "4,2" || "4,3" || "4,4" || "4,5" || "4,6" || "4,7" || "4,8" || "4,9" || "4,10" || "4,11" || "4,12" || "4,13" || "4,14" || "4,15"){
-                      setPlayerLevel("Elite I")
-                      }
-                      else if (convertedPlayerLevel == "5,0" || "5,1" || "5,2" || "5,3" || "5,4" || "5,5" || "5,6" || "5,7" || "5,8" || "5,9" || "5,10" || "5,11" || "5,12" || "5,13" || "5,14" || "5,15"){
-                        setPlayerLevel("Elite II")
-                        }
-                        else if (convertedPlayerLevel == "6,0" || "6,1" || "6,2" || "6,3" || "6,4" || "6,5" || "6,6" || "6,7" || "6,8" || "6,9" || "6,10" || "6,11" || "6,12" || "6,13" || "6,14" || "6,15"){
-                          setPlayerLevel("Elite III")
-                          }
-                          else if (convertedPlayerLevel == "7,0" || "7,1" || "7,2" || "7,3" || "7,4" || "7,5" || "7,6" || "7,7" || "7,8" || "7,9" || "7,10" || "7,11" || "7,12" || "7,13" || "7,14" || "7,15"){
-                            setPlayerLevel("Elite IV")
-                            }
-                            else if (convertedPlayerLevel == "8,0" || "8,1" || "8,2" || "8,3" || "8,4" || "8,5" || "8,6" || "8,7" || "8,8" || "8,9" || "8,10" || "8,11" || "8,12" || "8,13" || "8,14" || "8,15" || "8,16" || "8,17" || "8,18" || "8,19" || "8,20"){
-                              setPlayerLevel("Master I")
-                              }
-                              else if (convertedPlayerLevel == "9,0" || "9,1" || "9,2" || "9,3" || "9,4" || "9,5" || "9,6" || "9,7" || "9,8" || "9,9" || "9,10" || "9,11" || "9,12" || "9,13" || "9,14" || "9,15" || "9,16" || "9,17" || "9,18" || "9,19" || "9,20"){
-                                setPlayerLevel("Master II")
-                                }
-                                else if (convertedPlayerLevel == "10,0" || "10,1" || "10,2" || "10,3" || "10,4" || "10,5" || "10,6" || "10,7" || "10,8" || "10,9" || "10,10" || "10,11" || "10,12" || "10,13" || "10,14" || "10,15" || "10,16" || "10,17" || "10,18" || "10,19" || "10,20"){
-                                  setPlayerLevel("Master III")
-                                  }
-                                  else if (convertedPlayerLevel == "11,0" || "11,1" || "11,2" || "11,3" || "11,4" || "11,5" || "11,6" || "11,7" || "11,8" || "11,9" || "11,10" || "11,11" || "11,12" || "11,13" || "11,14" || "11,15" || "11,16" || "11,17" || "11,18" || "11,19" || "11,20"){
-                                    setPlayerLevel("Master IV")
-                                    }
-                                    else if (convertedPlayerLevel == "12,0" || "12,1" || "12,2" || "12,3" || "12,4" || "12,5" || "12,6" || "12,7" || "12,8" || "12,9" || "12,10" || "12,11" || "12,12" || "12,13" || "12,14" || "12,15" || "12,16" || "12,17" || "12,18" || "12,19" || "12,20"){
-                                      setPlayerLevel("Legendary")
-                                      }
+                else if (
+                  convertedPlayerLevel == "2,0" ||
+                  convertedPlayerLevel == "2,1" ||
+                  convertedPlayerLevel == "2,2" ||
+                  convertedPlayerLevel == "2,3" ||
+                  convertedPlayerLevel == "2,4" ||
+                  convertedPlayerLevel == "2,5" ||
+                  convertedPlayerLevel == "2,6" ||
+                  convertedPlayerLevel == "2,7" ||
+                  convertedPlayerLevel == "2,8" ||
+                  convertedPlayerLevel == "2,9" ||
+                  convertedPlayerLevel == "2,10"
+                ) {
+                  setPlayerLevel("Beginner III");
+                }
+                else if (
+                  convertedPlayerLevel == "3,0" ||
+                  convertedPlayerLevel == "3,1" ||
+                  convertedPlayerLevel == "3,2" ||
+                  convertedPlayerLevel == "3,3" ||
+                  convertedPlayerLevel == "3,4" ||
+                  convertedPlayerLevel == "3,5" ||
+                  convertedPlayerLevel == "3,6" ||
+                  convertedPlayerLevel == "3,7" ||
+                  convertedPlayerLevel == "3,8" ||
+                  convertedPlayerLevel == "3,9" ||
+                  convertedPlayerLevel == "3,10"
+                ) {
+                  setPlayerLevel("Beginner IV");
+                }
+                else if (
+                  convertedPlayerLevel == "4,0" ||
+                  convertedPlayerLevel == "4,1" ||
+                  convertedPlayerLevel == "4,2" ||
+                  convertedPlayerLevel == "4,3" ||
+                  convertedPlayerLevel == "4,4" ||
+                  convertedPlayerLevel == "4,5" ||
+                  convertedPlayerLevel == "4,6" ||
+                  convertedPlayerLevel == "4,7" ||
+                  convertedPlayerLevel == "4,8" ||
+                  convertedPlayerLevel == "4,9" ||
+                  convertedPlayerLevel == "4,10" ||
+                  convertedPlayerLevel == "4,11" ||
+                  convertedPlayerLevel == "4,12" ||
+                  convertedPlayerLevel == "4,13" ||
+                  convertedPlayerLevel == "4,14" ||
+                  convertedPlayerLevel == "4,15"
+                ) {
+                  setPlayerLevel("Elite I");
+                }
+                else if (
+                  convertedPlayerLevel == "5,0" ||
+                  convertedPlayerLevel == "5,1" ||
+                  convertedPlayerLevel == "5,2" ||
+                  convertedPlayerLevel == "5,3" ||
+                  convertedPlayerLevel == "5,4" ||
+                  convertedPlayerLevel == "5,5" ||
+                  convertedPlayerLevel == "5,6" ||
+                  convertedPlayerLevel == "5,7" ||
+                  convertedPlayerLevel == "5,8" ||
+                  convertedPlayerLevel == "5,9" ||
+                  convertedPlayerLevel == "5,10" ||
+                  convertedPlayerLevel == "5,11" ||
+                  convertedPlayerLevel == "5,12" ||
+                  convertedPlayerLevel == "5,13" ||
+                  convertedPlayerLevel == "5,14" ||
+                  convertedPlayerLevel == "5,15"
+                ) {
+                  setPlayerLevel("Elite II");
+                }
+                else if (
+                  convertedPlayerLevel == "6,0" ||
+                  convertedPlayerLevel == "6,1" ||
+                  convertedPlayerLevel == "6,2" ||
+                  convertedPlayerLevel == "6,3" ||
+                  convertedPlayerLevel == "6,4" ||
+                  convertedPlayerLevel == "6,5" ||
+                  convertedPlayerLevel == "6,6" ||
+                  convertedPlayerLevel == "6,7" ||
+                  convertedPlayerLevel == "6,8" ||
+                  convertedPlayerLevel == "6,9" ||
+                  convertedPlayerLevel == "6,10" ||
+                  convertedPlayerLevel == "6,11" ||
+                  convertedPlayerLevel == "6,12" ||
+                  convertedPlayerLevel == "6,13" ||
+                  convertedPlayerLevel == "6,14" ||
+                  convertedPlayerLevel == "6,15"
+                ) {
+                  setPlayerLevel("Elite III");
+                }
+                else if (
+                  convertedPlayerLevel == "7,0" ||
+                  convertedPlayerLevel == "7,1" ||
+                  convertedPlayerLevel == "7,2" ||
+                  convertedPlayerLevel == "7,3" ||
+                  convertedPlayerLevel == "7,4" ||
+                  convertedPlayerLevel == "7,5" ||
+                  convertedPlayerLevel == "7,6" ||
+                  convertedPlayerLevel == "7,7" ||
+                  convertedPlayerLevel == "7,8" ||
+                  convertedPlayerLevel == "7,9" ||
+                  convertedPlayerLevel == "7,10" ||
+                  convertedPlayerLevel == "7,11" ||
+                  convertedPlayerLevel == "7,12" ||
+                  convertedPlayerLevel == "7,13" ||
+                  convertedPlayerLevel == "7,14" ||
+                  convertedPlayerLevel == "7,15"
+                ) {
+                  setPlayerLevel("Elite IV");
+                }
+                else if (
+                  convertedPlayerLevel == "8,0" ||
+                  convertedPlayerLevel == "8,1" ||
+                  convertedPlayerLevel == "8,2" ||
+                  convertedPlayerLevel == "8,3" ||
+                  convertedPlayerLevel == "8,4" ||
+                  convertedPlayerLevel == "8,5" ||
+                  convertedPlayerLevel == "8,6" ||
+                  convertedPlayerLevel == "8,7" ||
+                  convertedPlayerLevel == "8,8" ||
+                  convertedPlayerLevel == "8,9" ||
+                  convertedPlayerLevel == "8,10" ||
+                  convertedPlayerLevel == "8,11" ||
+                  convertedPlayerLevel == "8,12" ||
+                  convertedPlayerLevel == "8,13" ||
+                  convertedPlayerLevel == "8,14" ||
+                  convertedPlayerLevel == "8,15" ||
+                  convertedPlayerLevel == "8,16" ||
+                  convertedPlayerLevel == "8,17" ||
+                  convertedPlayerLevel == "8,18" ||
+                  convertedPlayerLevel == "8,19" ||
+                  convertedPlayerLevel == "8,20"
+                ) {
+                  setPlayerLevel("Master I");
+                }
+                else if (
+                  convertedPlayerLevel == "9,0" ||
+                  convertedPlayerLevel == "9,1" ||
+                  convertedPlayerLevel == "9,2" ||
+                  convertedPlayerLevel == "9,3" ||
+                  convertedPlayerLevel == "9,4" ||
+                  convertedPlayerLevel == "9,5" ||
+                  convertedPlayerLevel == "9,6" ||
+                  convertedPlayerLevel == "9,7" ||
+                  convertedPlayerLevel == "9,8" ||
+                  convertedPlayerLevel == "9,9" ||
+                  convertedPlayerLevel == "9,10" ||
+                  convertedPlayerLevel == "9,11" ||
+                  convertedPlayerLevel == "9,12" ||
+                  convertedPlayerLevel == "9,13" ||
+                  convertedPlayerLevel == "9,14" ||
+                  convertedPlayerLevel == "9,15" ||
+                  convertedPlayerLevel == "9,16" ||
+                  convertedPlayerLevel == "9,17" ||
+                  convertedPlayerLevel == "9,18" ||
+                  convertedPlayerLevel == "9,19" ||
+                  convertedPlayerLevel == "9,20"
+                ) {
+                  setPlayerLevel("Master II");
+                }
+                else if (
+                  convertedPlayerLevel == "10,0" ||
+                  convertedPlayerLevel == "10,1" ||
+                  convertedPlayerLevel == "10,2" ||
+                  convertedPlayerLevel == "10,3" ||
+                  convertedPlayerLevel == "10,4" ||
+                  convertedPlayerLevel == "10,5" ||
+                  convertedPlayerLevel == "10,6" ||
+                  convertedPlayerLevel == "10,7" ||
+                  convertedPlayerLevel == "10,8" ||
+                  convertedPlayerLevel == "10,9" ||
+                  convertedPlayerLevel == "10,10" ||
+                  convertedPlayerLevel == "10,11" ||
+                  convertedPlayerLevel == "10,12" ||
+                  convertedPlayerLevel == "10,13" ||
+                  convertedPlayerLevel == "10,14" ||
+                  convertedPlayerLevel == "10,15" ||
+                  convertedPlayerLevel == "10,16" ||
+                  convertedPlayerLevel == "10,17" ||
+                  convertedPlayerLevel == "10,18" ||
+                  convertedPlayerLevel == "10,19" ||
+                  convertedPlayerLevel == "10,20"
+                ) {
+                  setPlayerLevel("Master III");
+                }
+                else if (
+                  convertedPlayerLevel == "11,0" ||
+                  convertedPlayerLevel == "11,1" ||
+                  convertedPlayerLevel == "11,2" ||
+                  convertedPlayerLevel == "11,3" ||
+                  convertedPlayerLevel == "11,4" ||
+                  convertedPlayerLevel == "11,5" ||
+                  convertedPlayerLevel == "11,6" ||
+                  convertedPlayerLevel == "11,7" ||
+                  convertedPlayerLevel == "11,8" ||
+                  convertedPlayerLevel == "11,9" ||
+                  convertedPlayerLevel == "11,10" ||
+                  convertedPlayerLevel == "11,11" ||
+                  convertedPlayerLevel == "11,12" ||
+                  convertedPlayerLevel == "11,13" ||
+                  convertedPlayerLevel == "11,14" ||
+                  convertedPlayerLevel == "11,15" ||
+                  convertedPlayerLevel == "11,16" ||
+                  convertedPlayerLevel == "11,17" ||
+                  convertedPlayerLevel == "11,18" ||
+                  convertedPlayerLevel == "11,19" ||
+                  convertedPlayerLevel == "11,20"
+                ) {
+                  setPlayerLevel("Master IV");
+                }
+                else if (
+                  convertedPlayerLevel == "12,0" ||
+                  convertedPlayerLevel == "12,1" ||
+                  convertedPlayerLevel == "12,2" ||
+                  convertedPlayerLevel == "12,3" ||
+                  convertedPlayerLevel == "12,4" ||
+                  convertedPlayerLevel == "12,5" ||
+                  convertedPlayerLevel == "12,6" ||
+                  convertedPlayerLevel == "12,7" ||
+                  convertedPlayerLevel == "12,8" ||
+                  convertedPlayerLevel == "12,9" ||
+                  convertedPlayerLevel == "12,10" ||
+                  convertedPlayerLevel == "12,11" ||
+                  convertedPlayerLevel == "12,12" ||
+                  convertedPlayerLevel == "12,13" ||
+                  convertedPlayerLevel == "12,14" ||
+                  convertedPlayerLevel == "12,15" ||
+                  convertedPlayerLevel == "12,16" ||
+                  convertedPlayerLevel == "12,17" ||
+                  convertedPlayerLevel == "12,18" ||
+                  convertedPlayerLevel == "12,19" ||
+                  convertedPlayerLevel == "12,20"
+                ) {
+                  setPlayerLevel("Legendary");
+                }
 
               const readPlayerRewardBalance = await readRewardContractSettings.balanceOf(theWalletAddress);
               const convertedreadPlayerRewardBalance = readPlayerRewardBalance.toString()
@@ -1236,6 +1438,7 @@ useEffect(() => {
            }  
            
            //function to withdraw accumulated game-play rewards
+           const [withdrawNotification, setwithdrawNotification] = useState(false)
            const withdrawGameplayRewards = async () => {
             const ethereum = (window).ethereum;
             const accounts = await ethereum.request({
@@ -1247,7 +1450,14 @@ useEffect(() => {
              const signer = provider.getSigner(walletAddress);
              const gameContractWriteSettings = new ethers.Contract(gameContractAddress, gameContractABI, signer)
              try {
-              const withdrawAccumulatedRewards = await gameContractWriteSettings.connect(signer)._withdrawErc20()
+              if (playerRewardBalance > 0){
+              const withdrawAccumulatedRewards = await gameContractWriteSettings.connect(signer)._withdrawErc20()}
+              else {
+                setwithdrawNotification(true)
+                setTimeout(()=> {
+                  setwithdrawNotification(false)
+                }, 5000)
+              }
              } catch (error) {
               console.log(error) 
              }
@@ -1271,7 +1481,8 @@ useEffect(() => {
         <div className='py-[0.1cm] px-[0.3cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Level <i className='fa fa-chevron-down text-[80%] mr-[0.1cm]'></i></span> {PLayerLevel} </div>
         <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Reward <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerRewardBalance} UGST</div>
         <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Staked balance <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerStakedBalance} UGST</div>
-        {startGame ? (<div></div>) : (<span><button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.1cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & withdrawGameplayRewards(e)}>Withdraw game rewards <img src="images/withdrawal.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button> <br />
+        {startGame ? (<div></div>) : (<span><button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.1cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & withdrawGameplayRewards(e)}>Withdraw reward <img src="images/withdrawal.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button> <br />
+        {withdrawNotification ? (<div data-aos="zoom-in" className='text-center text-[#fff] mt-[0.2cm] m-[auto]'>No withdrawable rewards <span><img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<span></span>)}
         <button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.2cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & setStaking(true)}>Stake/unstake reward <img src="images/coin.png" width="20" className='ml-[0.2cm] stakecoinimg' style={{display:"inline-block"}} /></button></span>)}
      </span>) : (<div></div>)}
      {startGame ? (<div className='lg:text-[350%] md:text-[200%] text-[150%] clear-both text-center font-[500]'>
@@ -1281,9 +1492,9 @@ useEffect(() => {
      <button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & playAndUpdateGame(e) & countdownInterval(e)}>Start game <img src="images/game-controller.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>
      {sendValues ? (<button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & sendGameValues(e)}>Submit characters<img src="images/superhero.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>) : (<span></span>)}
      <button className='bg-[#502] m-[0.2cm] text-[#fff] px-[0.5cm] py-[0.15cm] rounded-full navbutton' onClick={(e) => buttonsAudio(e) & setHowToPlay(true)}>How to play <img src="images/play.png" width="25" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button>
-     {connectNotification ? (<div data-aos="slide-up" className='text-[#fff] mt-[0.1cm] font-[500]'>Please connect wallet! <img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></div>) : (<div></div>)}
+     {connectNotification ? (<div data-aos="slide-up" className='text-[#fff] mt-[0.1cm] font-[500]'>Please connect wallet! <span><img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
      </div>)}
-     {numberOfInputs ? (<div className='text-center mt-[0.5cm] text-[120%]'><span>Select {numberOfInputs} characters from the list</span><span><img src="images/info.png" className='ml-[0.2cm]' width="20" style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
+     {numberOfInputs && connectedWallet ? (<div className='text-center mt-[0.5cm] text-[120%]'><span>Select {numberOfInputs} characters from the list</span><span><img src="images/info.png" className='ml-[0.2cm]' width="20" style={{display:"inline-block"}} /></span></div>) : (<div></div>)}
      </div>
 
     {howToPlay ? 
