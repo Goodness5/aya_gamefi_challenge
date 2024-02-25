@@ -9,7 +9,7 @@ The game features a robust combination of smart contracts and front end tools ra
 
 ## Tools used to create the Ultimate Galaxy Search Game
 
-### Smart Contract Tools ***
+### Smart Contract Tools
 Solidity, Foundry
 
 ### Front end and Integration Tools
