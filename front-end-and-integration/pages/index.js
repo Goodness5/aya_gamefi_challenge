@@ -164,7 +164,7 @@ return homePageMusic();
       </div>
     </div>
     <div className='grid-cols-1 characterdiv'>
-      <img src="images/characters/greenarrow.jpeg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
+      <img src="images/characters/greenarrow.jpg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
       <div className='bg-[rgba(0,0,0,0.7)] font-[600] rounded-xl m-[auto] lg:w-[60%] w-[80%] text-center p-[0.2cm] charactername'>
         <div>Greenarrow</div>
         <div><i class="fa fa-chevron-circle-up text-[#fff]"></i></div>
@@ -179,14 +179,14 @@ return homePageMusic();
       </div>
     </div>
     <div className='grid-cols-1 characterdiv'>
-      <img src="images/characters/darkseid.png" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
+      <img src="images/characters/darkseid.jpg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
       <div className='bg-[rgba(0,0,0,0.7)] font-[600] rounded-xl m-[auto] lg:w-[60%] w-[80%] text-center p-[0.2cm] charactername'>
         <div>Darkseid</div>
         <div><i class="fa fa-chevron-circle-up text-[#fff]"></i></div>
       </div>
     </div>
     <div className='grid-cols-1 characterdiv'>
-      <img src="images/characters/ironman.jpeg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
+      <img src="images/characters/ironman.jpg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
       <div className='bg-[rgba(0,0,0,0.7)] font-[600] rounded-xl m-[auto] lg:w-[60%] w-[80%] text-center p-[0.2cm] charactername'>
         <div>Ironman</div>
         <div><i class="fa fa-chevron-circle-up text-[#fff]"></i></div>
@@ -235,7 +235,7 @@ return homePageMusic();
       </div>
     </div>
     <div className='grid-cols-1 characterdiv'>
-      <img src="images/characters/apocalypse.jpeg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
+      <img src="images/characters/apocalypse.jpg" className='character rounded-xl lg:h-[9cm] md:h-[7cm] h-[5cm] w-[100%]' />
       <div className='bg-[rgba(0,0,0,0.7)] font-[600] rounded-xl m-[auto] lg:w-[60%] w-[80%] text-center p-[0.2cm] charactername'>
         <div>Apocalypse</div>
         <div><i class="fa fa-chevron-circle-up text-[#fff]"></i></div>

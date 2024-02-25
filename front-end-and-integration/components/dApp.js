@@ -64,7 +64,7 @@ export default function Dapp({buttonsAudio}) {
 <div className='my-[1cm] text-center text-[#aaa] text-[110%] font-[500]'>When you unstake before 30 days, you don't get the full amount you staked earlier. You get your staked amount and reward if you unstake after 30 days. &nbsp; <i className='fa fa-info-circle'></i></div>
 <button className='text-center py-[0.3cm] bg-[#502] font-[500] text-[#fff] w-[100%] mt-[0.5cm] rounded-full stakebutton cursor-pointer' onClick={(e) => {e.preventDefault();unstakeWithStakeContract(UGSTamount) & buttonsAudio(e)}}>Unstake</button>
 <div className='mt-[0.5cm] font-[500] text-center'>OR</div>
-<button className='text-center py-[0.3cm] bg-[#003] font-[500] text-[#fff] w-[100%] mt-[0.5cm] rounded-full stakebutton cursor-pointer' onClick={(e) => {e.preventDefault();withdrawReward() & buttonsAudio(e)}}>Withdraw reward</button>
+<button className='text-center py-[0.3cm] bg-[#003] font-[500] text-[#fff] w-[100%] mt-[0.5cm] rounded-full stakebutton cursor-pointer' onClick={(e) => {e.preventDefault();withdrawReward() & buttonsAudio(e)}}>Withdraw staking reward</button>
 </form>
 </div>)
 }
