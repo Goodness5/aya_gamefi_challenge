@@ -175,10 +175,10 @@
 - Explanation: Stakes the player's reward tokens in the staking contract.
 
 
-### GAME CONTRACT : https://sepolia.basescan.org/address/0x1b0136cdc660ca092c6939a58e63ef4a7123fa47
+### GAME CONTRACT :  https://sepolia.basescan.org/address/0xba74b18f0a0dab15ae9f6f89651ddb415a3af6bd
 
-### REWARD ERC20 TOKEN: https://sepolia.basescan.org/address/0xfb6d83f73f16fb1bc7d5c1f71fd5715793bd9117
+### REWARD ERC20 TOKEN:  https://sepolia.basescan.org/address/0x33252ae7f597ff190c83b9ac567923f985844cf9
 
-### NFT TOKEN REWARD : https://sepolia.basescan.org/address/0x76bc0ce24c89a56b5de7e2f0637f9b69555da7cb
+### NFT TOKEN REWARD : https://sepolia.basescan.org/address/0xabb27ea9a6bc4e91b8c15bbf52bd8b49a2c624ae
 
-### STAKING CONTRACT: https://sepolia.basescan.org/address/0x965821fd37ea838e968b1465a5ec8f7eabd583d4
+### STAKING CONTRACT: https://sepolia.basescan.org/address/0xc2015fffd3baef88aa011766836c5733aad3349b
