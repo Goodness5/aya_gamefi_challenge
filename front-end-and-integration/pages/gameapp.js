@@ -562,6 +562,8 @@ useEffect(() => {
           
            //function to write to the game contract and send game values to the blockchain
            const [sendValues, setSendValues] = useState(false)
+           const [score, setScore] = useState()
+           const [reward, setRewardBalance] = useState()
            const sendGameValues = async () => {
             if (connectedWallet){
               const ethereum = (window).ethereum;
@@ -580,6 +582,7 @@ useEffect(() => {
                  const newArrayOfCharacters = arrayOfCharacters.filter(item => item !== null && item !== undefined && item != "");
                  console.log(newArrayOfCharacters);
                  const sendGameValues = await gameContractWriteSettings.connect(signer).StartGame(newArrayOfCharacters)
+                 console.log(sendGameValues)
                  setSendValues(false)
             } catch (error) {
               console.log(error) 
