@@ -255,19 +255,19 @@ useEffect(() => {
             //Contract addresses, RPC and their settings to write to and read from contracts
             const BaseSepoliaRPC = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qI8bxNGIpzU-b3LNo8LbOvPUf_VRgbiu");
             //For Game contract
-            const gameContractAddress = "0x8479B76e95be72bf2Addf90804D997c808cf8c9f"         
+            const gameContractAddress = "0xaf87f9667B757dF9b8C85dFbeE954DF401D70b95"         
             const readGameContractSettings = new ethers.Contract(gameContractAddress, gameContractABI, BaseSepoliaRPC)
 
             //for reward contract
-            const rewardContractAddress = "0x69BdC85f7996b15FA76829d9C4aa717D8A1EcbA8" 
+            const rewardContractAddress = "0x73E27A9Ae18A05223a0479685df735484DFDBCee" 
             const readRewardContractSettings = new ethers.Contract(rewardContractAddress, rewardContractABI, BaseSepoliaRPC)
 
             //for NFT contract
-            const nftContractAddress = "0x048F6528bCa4E47691934c632AD3c180dDDe7750"       
+            const nftContractAddress = "0x1216c8BC47f33c6cffDd46221D863bA0ddA0980A"       
             const readNFTContractSettings = new ethers.Contract(nftContractAddress, nftContractABI, BaseSepoliaRPC)
 
             //for staking contract
-            const stakeContractAddress = "0x704334eFDCAA65bfb66c6d55511279695537FC2b"   
+            const stakeContractAddress = "0xD4f5530ccB19268b50E6D5f7c27D125a52a51e4e"   
             const readStakeContractSettings = new ethers.Contract(stakeContractAddress, stakeContractABI, BaseSepoliaRPC)
 
            //functions to read from contracts
