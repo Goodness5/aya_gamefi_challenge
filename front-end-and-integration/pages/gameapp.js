@@ -255,19 +255,19 @@ useEffect(() => {
             //Contract addresses, RPC and their settings to write to and read from contracts
             const BaseSepoliaRPC = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qI8bxNGIpzU-b3LNo8LbOvPUf_VRgbiu");
             //For Game contract
-            const gameContractAddress = "0xaf87f9667B757dF9b8C85dFbeE954DF401D70b95"         
+            const gameContractAddress = "0x8479B76e95be72bf2Addf90804D997c808cf8c9f"         
             const readGameContractSettings = new ethers.Contract(gameContractAddress, gameContractABI, BaseSepoliaRPC)
 
             //for reward contract
-            const rewardContractAddress = "0x73E27A9Ae18A05223a0479685df735484DFDBCee" 
+            const rewardContractAddress = "0x69BdC85f7996b15FA76829d9C4aa717D8A1EcbA8" 
             const readRewardContractSettings = new ethers.Contract(rewardContractAddress, rewardContractABI, BaseSepoliaRPC)
 
             //for NFT contract
-            const nftContractAddress = "0x1216c8BC47f33c6cffDd46221D863bA0ddA0980A"       
+            const nftContractAddress = "0x048F6528bCa4E47691934c632AD3c180dDDe7750"       
             const readNFTContractSettings = new ethers.Contract(nftContractAddress, nftContractABI, BaseSepoliaRPC)
 
             //for staking contract
-            const stakeContractAddress = "0xD4f5530ccB19268b50E6D5f7c27D125a52a51e4e"   
+            const stakeContractAddress = "0x704334eFDCAA65bfb66c6d55511279695537FC2b"   
             const readStakeContractSettings = new ethers.Contract(stakeContractAddress, stakeContractABI, BaseSepoliaRPC)
 
            //functions to read from contracts
@@ -629,14 +629,11 @@ useEffect(() => {
              const signer = provider.getSigner(walletAddress);
              const gameContractWriteSettings = new ethers.Contract(gameContractAddress, gameContractABI, signer)
              try {
-              if (playerRewardBalance > 0){
-              const withdrawAccumulatedRewards = await gameContractWriteSettings.connect(signer)._withdrawErc20()}
-              else {
-                setwithdrawNotification(true)
-                setTimeout(()=> {
-                  setwithdrawNotification(false)
-                }, 5000)
-              }
+              const withdrawAccumulatedRewards = await gameContractWriteSettings.connect(signer)._withdrawErc20()  
+              setwithdrawNotification(true)
+              setTimeout(()=> {
+                setwithdrawNotification(false)
+              }, 5000)           
              } catch (error) {
               console.log(error) 
              }
@@ -661,7 +658,7 @@ useEffect(() => {
         <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Balance <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerRewardBalance} UGST</div>
         <div className='py-[0.1cm] px-[0.3cm] my-[0.2cm] rounded-md bg-[#001]' style={{border:"1px solid #fff"}}><span className='font-[600]'>Staking reward <i className='fa fa-chevron-down text-[80%] mr-[0.2cm]'></i></span> {playerStakingReward} UGST</div>
         {startGame ? (<div></div>) : (<span><button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.1cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & withdrawGameplayRewards(e)}>Withdraw reward <img src="images/withdrawal.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></button> <br />
-        {withdrawNotification ? (<div data-aos="zoom-in" className='text-center text-[#fff] mt-[0.2cm] m-[auto]'>No withdrawable rewards <span><img src="images/disappointment.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<span></span>)}
+        {withdrawNotification ? (<div data-aos="zoom-in" className='text-center text-[#fff] mt-[0.2cm] m-[auto]'>Congrats! <span><img src="images/happy.png" width="20" className='ml-[0.2cm]' style={{display:"inline-block"}} /></span></div>) : (<span></span>)}
         <button className='bg-[#502] text-[#fff] px-[0.3cm] py-[0.1cm] rounded-md mt-[0.2cm] w-[100%] stakebutton' onClick={(e) => buttonsAudio(e) & setStaking(true)}>Stake/unstake reward <img src="images/coin.png" width="20" className='ml-[0.2cm] stakecoinimg' style={{display:"inline-block"}} /></button></span>)}
      </span>) : (<div></div>)}
      {startGame ? (<div className='lg:text-[350%] md:text-[200%] text-[150%] clear-both text-center font-[500]'>

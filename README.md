@@ -222,10 +222,10 @@ Thorough documentation about the smart contracts is being discussed below.
 - Return: Amount of tokens staked.
 - Explanation: Stakes the player's reward tokens in the staking contract.
 
-### GAME CONTRACT : <https://sepolia.basescan.org/address/0xaf87f9667b757df9b8c85dfbee954df401d70b95>
+### GAME CONTRACT : <https://sepolia.basescan.org/address/0x8479b76e95be72bf2addf90804d997c808cf8c9f>
 
-### REWARD ERC20 TOKEN:  <https://sepolia.basescan.org/address/0x73e27a9ae18a05223a0479685df735484dfdbcee>
+### REWARD ERC20 TOKEN:  <https://sepolia.basescan.org/address/0x69bdc85f7996b15fa76829d9c4aa717d8a1ecba8>
 
-### NFT TOKEN REWARD : <https://sepolia.basescan.org/address/0x1216c8bc47f33c6cffdd46221d863ba0dda0980a>
+### NFT TOKEN REWARD : <https://sepolia.basescan.org/address/0x048f6528bca4e47691934c632ad3c180ddde7750>
 
-### STAKING CONTRACT: <https://sepolia.basescan.org/address/0xd4f5530ccb19268b50e6d5f7c27d125a52a51e4e>
+### STAKING CONTRACT: <https://sepolia.basescan.org/address/0x704334efdcaa65bfb66c6d55511279695537fc2b>
