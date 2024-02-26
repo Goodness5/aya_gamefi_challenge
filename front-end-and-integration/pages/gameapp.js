@@ -255,19 +255,19 @@ useEffect(() => {
             //Contract addresses, RPC and their settings to write to and read from contracts
             const BaseSepoliaRPC = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qI8bxNGIpzU-b3LNo8LbOvPUf_VRgbiu");
             //For Game contract
-            const gameContractAddress = "0x8a20493b81F9568FD12235b110b8c67E960E0cc0"         
+            const gameContractAddress = "0xaf87f9667B757dF9b8C85dFbeE954DF401D70b95"         
             const readGameContractSettings = new ethers.Contract(gameContractAddress, gameContractABI, BaseSepoliaRPC)
 
             //for reward contract
-            const rewardContractAddress = "0xd0B703E2dDc4Cb9aF423d24D6a2Cd3aD191699c1" 
+            const rewardContractAddress = "0x73E27A9Ae18A05223a0479685df735484DFDBCee" 
             const readRewardContractSettings = new ethers.Contract(rewardContractAddress, rewardContractABI, BaseSepoliaRPC)
 
             //for NFT contract
-            const nftContractAddress = "0xaDc938CD77e465958489D44201D941dC7Aa7a2B9"       
+            const nftContractAddress = "0x1216c8BC47f33c6cffDd46221D863bA0ddA0980A"       
             const readNFTContractSettings = new ethers.Contract(nftContractAddress, nftContractABI, BaseSepoliaRPC)
 
             //for staking contract
-            const stakeContractAddress = "0x336AE0AaEc99fDcfa9c7005FC7c339B43268A7c3"   
+            const stakeContractAddress = "0xD4f5530ccB19268b50E6D5f7c27D125a52a51e4e"   
             const readStakeContractSettings = new ethers.Contract(stakeContractAddress, stakeContractABI, BaseSepoliaRPC)
 
            //functions to read from contracts
@@ -279,6 +279,7 @@ useEffect(() => {
             try {
               const readPlayerLevel = await readGameContractSettings.getplayerLevel();
               const convertedPlayerLevel = readPlayerLevel.toString()
+              console.log(convertedPlayerLevel)
               if (convertedPlayerLevel == "0,0" ||
               convertedPlayerLevel == "0,1" ||
               convertedPlayerLevel == "0,2" ||
@@ -581,7 +582,7 @@ useEffect(() => {
                   DoctorDoom, Apocalypse, Joker, LexLuthor, Loki, MartianManhunter, Aquaman, GreenLantern, Superman, Thor, Hulk];
                  const newArrayOfCharacters = arrayOfCharacters.filter(item => item !== null && item !== undefined && item != "");
                  console.log(newArrayOfCharacters);
-                 const sendGameValues = await gameContractWriteSettings.connect(signer).StartGame(newArrayOfCharacters)
+                 const sendGameValues = await gameContractWriteSettings.connect(signer).StartGame(newArrayOfCharacters);
                  console.log(sendGameValues)
                  setSendValues(false)
             } catch (error) {

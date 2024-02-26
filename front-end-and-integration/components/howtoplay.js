@@ -43,7 +43,8 @@ export default function HowToPlay({instruction1, instruction2, instruction3, ins
           while the timeout feature is running. Immediately your time is up, your game will end. A button will pop-up prompting you to submit chosen characters and sign the 
           transaction to determine your reward. Your reward will be allocated according to your correct number of guesses. If you pass the current stage, you will be upgraded 
           to the next level. Each level has at least 10 sub-levels. Typically, your reward is allocated (can be withdrawn with the "withdraw reward" button on the upper right) after submitting the characters and signing the transaction. Please sign
-           all transactions that pop-up while playing the game. Your score and reward allocated is accessible on the Base Sepolia explorer in an event emitted by the game contract.
+           all transactions that pop-up while playing the game. Your score and reward allocated can be viewed on the Base Sepolia explorer in an event emitted by the contract. Use the "Claim reward" button on the dashboard on the upper right of 
+           the web app to claim rewards.
          </div>
          </div>)
          }

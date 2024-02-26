@@ -186,7 +186,6 @@ const gameContractABI = [
   { stateMutability: "payable", type: "receive" },
 ];
 
-
 const rewardContractABI = [
   {
     inputs: [
@@ -410,7 +409,6 @@ const rewardContractABI = [
     type: "function",
   },
 ];
-
 
 const nftContractABI = [
   {
@@ -711,8 +709,6 @@ const nftContractABI = [
   },
 ];
 
-
-
 const stakeContractABI = [
   {
     inputs: [
@@ -870,5 +866,4 @@ const stakeContractABI = [
   },
 ];
 
-
-module.exports = { gameContractABI, rewardContractABI, nftContractABI, stakeContractABI };
+module.exports = {gameContractABI, rewardContractABI, nftContractABI, stakeContractABI};
