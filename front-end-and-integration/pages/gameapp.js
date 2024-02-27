@@ -255,19 +255,19 @@ useEffect(() => {
             //Contract addresses, RPC and their settings to write to and read from contracts
             const BaseSepoliaRPC = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qI8bxNGIpzU-b3LNo8LbOvPUf_VRgbiu");
             //For Game contract
-            const gameContractAddress = "0xaf87f9667B757dF9b8C85dFbeE954DF401D70b95"         
+            const gameContractAddress = "0x430438A78f5F5c4a2a6950098B31f50f4536EEF4"         
             const readGameContractSettings = new ethers.Contract(gameContractAddress, gameContractABI, BaseSepoliaRPC)
 
             //for reward contract
-            const rewardContractAddress = "0x73E27A9Ae18A05223a0479685df735484DFDBCee" 
+            const rewardContractAddress = "0x5aF5485f2919292747Fad7720b974c081b1955fe" 
             const readRewardContractSettings = new ethers.Contract(rewardContractAddress, rewardContractABI, BaseSepoliaRPC)
 
             //for NFT contract
-            const nftContractAddress = "0x1216c8BC47f33c6cffDd46221D863bA0ddA0980A"       
+            const nftContractAddress = "0xCc07aCED401b4C5aEbcb564a3c922fDd95Dc9eeC"       
             const readNFTContractSettings = new ethers.Contract(nftContractAddress, nftContractABI, BaseSepoliaRPC)
 
             //for staking contract
-            const stakeContractAddress = "0xD4f5530ccB19268b50E6D5f7c27D125a52a51e4e"   
+            const stakeContractAddress = "0x25682DcDa6FCD3d79aBb6306454b42e0db85b49c"   
             const readStakeContractSettings = new ethers.Contract(stakeContractAddress, stakeContractABI, BaseSepoliaRPC)
 
            //functions to read from contracts
@@ -584,7 +584,7 @@ useEffect(() => {
                  console.log(newArrayOfCharacters);
                  const sendGameValues = await gameContractWriteSettings.connect(signer).StartGame(newArrayOfCharacters);
                  console.log(sendGameValues)
-                 setSendValues(false)
+                 //setSendValues(false)
             } catch (error) {
               console.log(error) 
             }

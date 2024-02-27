@@ -866,4 +866,9 @@ const stakeContractABI = [
   },
 ];
 
-module.exports = {gameContractABI, rewardContractABI, nftContractABI, stakeContractABI};
+module.exports = {
+  gameContractABI,
+  rewardContractABI,
+  nftContractABI,
+  stakeContractABI,
+};
