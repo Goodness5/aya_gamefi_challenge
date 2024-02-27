@@ -228,4 +228,4 @@ Thorough documentation about the smart contracts is being discussed below.
 
 ### NFT TOKEN REWARD : <https://sepolia.basescan.org/address/0xCc07aCED401b4C5aEbcb564a3c922fDd95Dc9eeC>
 
-### STAKING CONTRACT: <https://sepolia.basescan.org/address/0x25682DcDa6FCD3d79aBb6306454b42e0db85b49c>
+### STAKING CONTRACT: <https://sepolia.basescan.org/address/0x25682DcDa6FCD3d79aBb6306454b42e0db85b49c> 
