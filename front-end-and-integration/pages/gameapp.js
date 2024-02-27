@@ -584,7 +584,7 @@ useEffect(() => {
                  console.log(newArrayOfCharacters);
                  const sendGameValues = await gameContractWriteSettings.connect(signer).StartGame(newArrayOfCharacters);
                  console.log(sendGameValues)
-                 //setSendValues(false)
+                 setSendValues(false)
             } catch (error) {
               console.log(error) 
             }
