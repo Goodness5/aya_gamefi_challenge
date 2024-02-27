@@ -33,8 +33,8 @@ export default function Dapp({buttonsAudio, playerRewardBalance, stakeContractAd
          try {
           if (playerRewardBalance > 0){
             //first approve staking contract to spend reward token
-          const approveStakingContractFRomRewardContract = await rewardContractWriteSettings.connect(signer).approve(stakeContractAddress, ethers.utils.parseUnits(UGSTamount, 18));
-          const writeToStake = await stakeContractWriteSettings.connect(signer).stake(rewardContractAddress, ethers.utils.parseUnits(UGSTamount, 18));
+          const approveStakingContractFRomRewardContract = await rewardContractWriteSettings.connect(signer).approve(stakeContractAddress, ethers.utils.parseUnits(UGSTamount, 0));
+          const writeToStake = await stakeContractWriteSettings.connect(signer).stake(rewardContractAddress, ethers.utils.parseUnits(UGSTamount, 0));
           setStaking(false)
          }
           else {
