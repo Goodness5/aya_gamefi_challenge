@@ -38,7 +38,7 @@ Thorough documentation about the smart contracts is being discussed below.
 
 ## Team Members (Team Questgeeks)
 * Patrick Ominisan - Blockchain engineer
-* Kolapo Goodness - Smart contract engineer
+* Kolapo Goodness - Blockchain developer
 
 # Game Contract Documentation
 
