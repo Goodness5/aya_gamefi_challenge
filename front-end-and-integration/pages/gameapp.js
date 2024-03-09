@@ -277,270 +277,98 @@ useEffect(() => {
            useEffect(()=> {
            const readFromContracts = async () => {
             try {
-              const readPlayerLevel = await readGameContractSettings.getplayerLevel();
-              const convertedPlayerLevel = readPlayerLevel.toString()
-              console.log(convertedPlayerLevel)
-              if (convertedPlayerLevel == "0,0" ||
-              convertedPlayerLevel == "0,1" ||
-              convertedPlayerLevel == "0,2" ||
-              convertedPlayerLevel == "0,3" ||
-              convertedPlayerLevel == "0,4" ||
-              convertedPlayerLevel == "0,5" ||
-              convertedPlayerLevel == "0,6" ||
-              convertedPlayerLevel == "0,7" ||
-              convertedPlayerLevel == "0,8" ||
-              convertedPlayerLevel == "0,9" ||
-              convertedPlayerLevel == "0,10"){
-              setPlayerLevel("Beginner I")
+              const readPlayerLevel0 = (await readGameContractSettings.specificLevel(theWalletAddress, "0")).toString();
+              const readPlayerLevel1 = (await readGameContractSettings.specificLevel(theWalletAddress, "1")).toString();
+              const readPlayerLevel2 = (await readGameContractSettings.specificLevel(theWalletAddress, "2")).toString();
+              const readPlayerLevel3 = (await readGameContractSettings.specificLevel(theWalletAddress, "3")).toString();
+              const readPlayerLevel4 = (await readGameContractSettings.specificLevel(theWalletAddress, "4")).toString();
+              const readPlayerLevel5 = (await readGameContractSettings.specificLevel(theWalletAddress, "5")).toString();
+              const readPlayerLevel6 = (await readGameContractSettings.specificLevel(theWalletAddress, "6")).toString();
+              const readPlayerLevel7 = (await readGameContractSettings.specificLevel(theWalletAddress, "7")).toString();
+              const readPlayerLevel8 = (await readGameContractSettings.specificLevel(theWalletAddress, "8")).toString();
+              const readPlayerLevel9 = (await readGameContractSettings.specificLevel(theWalletAddress, "9")).toString();
+              const readPlayerLevel10 = (await readGameContractSettings.specificLevel(theWalletAddress, "10")).toString();
+              const readPlayerLevel11 = (await readGameContractSettings.specificLevel(theWalletAddress, "11")).toString();
+              const readPlayerLevel12 = (await readGameContractSettings.specificLevel(theWalletAddress, "12")).toString();
+              
+              if (readPlayerLevel0 >= 0 & readPlayerLevel1 == 0 & readPlayerLevel2 == 0 & readPlayerLevel3 == 0 &  
+                  readPlayerLevel4 == 0 & readPlayerLevel5 == 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Beginner I")
               }
-              else if (convertedPlayerLevel == "1,0" ||
-              convertedPlayerLevel == "1,1" ||
-              convertedPlayerLevel == "1,2" ||
-              convertedPlayerLevel == "1,3" ||
-              convertedPlayerLevel == "1,4" ||
-              convertedPlayerLevel == "1,5" ||
-              convertedPlayerLevel == "1,6" ||
-              convertedPlayerLevel == "1,7" ||
-              convertedPlayerLevel == "1,8" ||
-              convertedPlayerLevel == "1,9" ||
-              convertedPlayerLevel == "1,10"){
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 == 0 & readPlayerLevel3 == 0 &  
+                  readPlayerLevel4 == 0 & readPlayerLevel5 == 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
                 setPlayerLevel("Beginner II")
-                }
-                else if (
-                  convertedPlayerLevel == "2,0" ||
-                  convertedPlayerLevel == "2,1" ||
-                  convertedPlayerLevel == "2,2" ||
-                  convertedPlayerLevel == "2,3" ||
-                  convertedPlayerLevel == "2,4" ||
-                  convertedPlayerLevel == "2,5" ||
-                  convertedPlayerLevel == "2,6" ||
-                  convertedPlayerLevel == "2,7" ||
-                  convertedPlayerLevel == "2,8" ||
-                  convertedPlayerLevel == "2,9" ||
-                  convertedPlayerLevel == "2,10"
-                ) {
-                  setPlayerLevel("Beginner III");
-                }
-                else if (
-                  convertedPlayerLevel == "3,0" ||
-                  convertedPlayerLevel == "3,1" ||
-                  convertedPlayerLevel == "3,2" ||
-                  convertedPlayerLevel == "3,3" ||
-                  convertedPlayerLevel == "3,4" ||
-                  convertedPlayerLevel == "3,5" ||
-                  convertedPlayerLevel == "3,6" ||
-                  convertedPlayerLevel == "3,7" ||
-                  convertedPlayerLevel == "3,8" ||
-                  convertedPlayerLevel == "3,9" ||
-                  convertedPlayerLevel == "3,10"
-                ) {
-                  setPlayerLevel("Beginner IV");
-                }
-                else if (
-                  convertedPlayerLevel == "4,0" ||
-                  convertedPlayerLevel == "4,1" ||
-                  convertedPlayerLevel == "4,2" ||
-                  convertedPlayerLevel == "4,3" ||
-                  convertedPlayerLevel == "4,4" ||
-                  convertedPlayerLevel == "4,5" ||
-                  convertedPlayerLevel == "4,6" ||
-                  convertedPlayerLevel == "4,7" ||
-                  convertedPlayerLevel == "4,8" ||
-                  convertedPlayerLevel == "4,9" ||
-                  convertedPlayerLevel == "4,10" ||
-                  convertedPlayerLevel == "4,11" ||
-                  convertedPlayerLevel == "4,12" ||
-                  convertedPlayerLevel == "4,13" ||
-                  convertedPlayerLevel == "4,14" ||
-                  convertedPlayerLevel == "4,15"
-                ) {
-                  setPlayerLevel("Elite I");
-                }
-                else if (
-                  convertedPlayerLevel == "5,0" ||
-                  convertedPlayerLevel == "5,1" ||
-                  convertedPlayerLevel == "5,2" ||
-                  convertedPlayerLevel == "5,3" ||
-                  convertedPlayerLevel == "5,4" ||
-                  convertedPlayerLevel == "5,5" ||
-                  convertedPlayerLevel == "5,6" ||
-                  convertedPlayerLevel == "5,7" ||
-                  convertedPlayerLevel == "5,8" ||
-                  convertedPlayerLevel == "5,9" ||
-                  convertedPlayerLevel == "5,10" ||
-                  convertedPlayerLevel == "5,11" ||
-                  convertedPlayerLevel == "5,12" ||
-                  convertedPlayerLevel == "5,13" ||
-                  convertedPlayerLevel == "5,14" ||
-                  convertedPlayerLevel == "5,15"
-                ) {
-                  setPlayerLevel("Elite II");
-                }
-                else if (
-                  convertedPlayerLevel == "6,0" ||
-                  convertedPlayerLevel == "6,1" ||
-                  convertedPlayerLevel == "6,2" ||
-                  convertedPlayerLevel == "6,3" ||
-                  convertedPlayerLevel == "6,4" ||
-                  convertedPlayerLevel == "6,5" ||
-                  convertedPlayerLevel == "6,6" ||
-                  convertedPlayerLevel == "6,7" ||
-                  convertedPlayerLevel == "6,8" ||
-                  convertedPlayerLevel == "6,9" ||
-                  convertedPlayerLevel == "6,10" ||
-                  convertedPlayerLevel == "6,11" ||
-                  convertedPlayerLevel == "6,12" ||
-                  convertedPlayerLevel == "6,13" ||
-                  convertedPlayerLevel == "6,14" ||
-                  convertedPlayerLevel == "6,15"
-                ) {
-                  setPlayerLevel("Elite III");
-                }
-                else if (
-                  convertedPlayerLevel == "7,0" ||
-                  convertedPlayerLevel == "7,1" ||
-                  convertedPlayerLevel == "7,2" ||
-                  convertedPlayerLevel == "7,3" ||
-                  convertedPlayerLevel == "7,4" ||
-                  convertedPlayerLevel == "7,5" ||
-                  convertedPlayerLevel == "7,6" ||
-                  convertedPlayerLevel == "7,7" ||
-                  convertedPlayerLevel == "7,8" ||
-                  convertedPlayerLevel == "7,9" ||
-                  convertedPlayerLevel == "7,10" ||
-                  convertedPlayerLevel == "7,11" ||
-                  convertedPlayerLevel == "7,12" ||
-                  convertedPlayerLevel == "7,13" ||
-                  convertedPlayerLevel == "7,14" ||
-                  convertedPlayerLevel == "7,15"
-                ) {
-                  setPlayerLevel("Elite IV");
-                }
-                else if (
-                  convertedPlayerLevel == "8,0" ||
-                  convertedPlayerLevel == "8,1" ||
-                  convertedPlayerLevel == "8,2" ||
-                  convertedPlayerLevel == "8,3" ||
-                  convertedPlayerLevel == "8,4" ||
-                  convertedPlayerLevel == "8,5" ||
-                  convertedPlayerLevel == "8,6" ||
-                  convertedPlayerLevel == "8,7" ||
-                  convertedPlayerLevel == "8,8" ||
-                  convertedPlayerLevel == "8,9" ||
-                  convertedPlayerLevel == "8,10" ||
-                  convertedPlayerLevel == "8,11" ||
-                  convertedPlayerLevel == "8,12" ||
-                  convertedPlayerLevel == "8,13" ||
-                  convertedPlayerLevel == "8,14" ||
-                  convertedPlayerLevel == "8,15" ||
-                  convertedPlayerLevel == "8,16" ||
-                  convertedPlayerLevel == "8,17" ||
-                  convertedPlayerLevel == "8,18" ||
-                  convertedPlayerLevel == "8,19" ||
-                  convertedPlayerLevel == "8,20"
-                ) {
-                  setPlayerLevel("Master I");
-                }
-                else if (
-                  convertedPlayerLevel == "9,0" ||
-                  convertedPlayerLevel == "9,1" ||
-                  convertedPlayerLevel == "9,2" ||
-                  convertedPlayerLevel == "9,3" ||
-                  convertedPlayerLevel == "9,4" ||
-                  convertedPlayerLevel == "9,5" ||
-                  convertedPlayerLevel == "9,6" ||
-                  convertedPlayerLevel == "9,7" ||
-                  convertedPlayerLevel == "9,8" ||
-                  convertedPlayerLevel == "9,9" ||
-                  convertedPlayerLevel == "9,10" ||
-                  convertedPlayerLevel == "9,11" ||
-                  convertedPlayerLevel == "9,12" ||
-                  convertedPlayerLevel == "9,13" ||
-                  convertedPlayerLevel == "9,14" ||
-                  convertedPlayerLevel == "9,15" ||
-                  convertedPlayerLevel == "9,16" ||
-                  convertedPlayerLevel == "9,17" ||
-                  convertedPlayerLevel == "9,18" ||
-                  convertedPlayerLevel == "9,19" ||
-                  convertedPlayerLevel == "9,20"
-                ) {
-                  setPlayerLevel("Master II");
-                }
-                else if (
-                  convertedPlayerLevel == "10,0" ||
-                  convertedPlayerLevel == "10,1" ||
-                  convertedPlayerLevel == "10,2" ||
-                  convertedPlayerLevel == "10,3" ||
-                  convertedPlayerLevel == "10,4" ||
-                  convertedPlayerLevel == "10,5" ||
-                  convertedPlayerLevel == "10,6" ||
-                  convertedPlayerLevel == "10,7" ||
-                  convertedPlayerLevel == "10,8" ||
-                  convertedPlayerLevel == "10,9" ||
-                  convertedPlayerLevel == "10,10" ||
-                  convertedPlayerLevel == "10,11" ||
-                  convertedPlayerLevel == "10,12" ||
-                  convertedPlayerLevel == "10,13" ||
-                  convertedPlayerLevel == "10,14" ||
-                  convertedPlayerLevel == "10,15" ||
-                  convertedPlayerLevel == "10,16" ||
-                  convertedPlayerLevel == "10,17" ||
-                  convertedPlayerLevel == "10,18" ||
-                  convertedPlayerLevel == "10,19" ||
-                  convertedPlayerLevel == "10,20"
-                ) {
-                  setPlayerLevel("Master III");
-                }
-                else if (
-                  convertedPlayerLevel == "11,0" ||
-                  convertedPlayerLevel == "11,1" ||
-                  convertedPlayerLevel == "11,2" ||
-                  convertedPlayerLevel == "11,3" ||
-                  convertedPlayerLevel == "11,4" ||
-                  convertedPlayerLevel == "11,5" ||
-                  convertedPlayerLevel == "11,6" ||
-                  convertedPlayerLevel == "11,7" ||
-                  convertedPlayerLevel == "11,8" ||
-                  convertedPlayerLevel == "11,9" ||
-                  convertedPlayerLevel == "11,10" ||
-                  convertedPlayerLevel == "11,11" ||
-                  convertedPlayerLevel == "11,12" ||
-                  convertedPlayerLevel == "11,13" ||
-                  convertedPlayerLevel == "11,14" ||
-                  convertedPlayerLevel == "11,15" ||
-                  convertedPlayerLevel == "11,16" ||
-                  convertedPlayerLevel == "11,17" ||
-                  convertedPlayerLevel == "11,18" ||
-                  convertedPlayerLevel == "11,19" ||
-                  convertedPlayerLevel == "11,20"
-                ) {
-                  setPlayerLevel("Master IV");
-                }
-                else if (
-                  convertedPlayerLevel == "12,0" ||
-                  convertedPlayerLevel == "12,1" ||
-                  convertedPlayerLevel == "12,2" ||
-                  convertedPlayerLevel == "12,3" ||
-                  convertedPlayerLevel == "12,4" ||
-                  convertedPlayerLevel == "12,5" ||
-                  convertedPlayerLevel == "12,6" ||
-                  convertedPlayerLevel == "12,7" ||
-                  convertedPlayerLevel == "12,8" ||
-                  convertedPlayerLevel == "12,9" ||
-                  convertedPlayerLevel == "12,10" ||
-                  convertedPlayerLevel == "12,11" ||
-                  convertedPlayerLevel == "12,12" ||
-                  convertedPlayerLevel == "12,13" ||
-                  convertedPlayerLevel == "12,14" ||
-                  convertedPlayerLevel == "12,15" ||
-                  convertedPlayerLevel == "12,16" ||
-                  convertedPlayerLevel == "12,17" ||
-                  convertedPlayerLevel == "12,18" ||
-                  convertedPlayerLevel == "12,19" ||
-                  convertedPlayerLevel == "12,20"
-                ) {
-                  setPlayerLevel("Legendary");
-                }
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 == 0 &  
+                  readPlayerLevel4 == 0 & readPlayerLevel5 == 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Beginner III")
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 == 0 & readPlayerLevel5 == 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Beginner IV")
+              }
+
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 == 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Elite I")
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 == 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Elite II")
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 == 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Elite III")
+              }
+
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 == 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Elite IV")
+              }
+
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 > 0 &
+                  readPlayerLevel9 == 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Master I")
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 > 0 &
+                  readPlayerLevel9 > 0 & readPlayerLevel10 == 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Master II")
+              }
+              
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 > 0 &
+                  readPlayerLevel9 > 0 & readPlayerLevel10 > 0 & readPlayerLevel11 == 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Master III")
+              }
+
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 > 0 &
+                  readPlayerLevel9 > 0 & readPlayerLevel10 > 0 & readPlayerLevel11 > 0 & readPlayerLevel12 == 0) {
+                setPlayerLevel("Master IV")
+              }
+
+              else if (readPlayerLevel0 > 0 & readPlayerLevel1 > 0 & readPlayerLevel2 > 0 & readPlayerLevel3 > 0 &  
+                  readPlayerLevel4 > 0 & readPlayerLevel5 > 0 & readPlayerLevel6 > 0 & readPlayerLevel7 > 0 & readPlayerLevel8 > 0 &
+                  readPlayerLevel9 > 0 & readPlayerLevel10 > 0 & readPlayerLevel11 > 0 & readPlayerLevel12 > 0) {
+                setPlayerLevel("Legendary")
+              }
+
 
               const readPlayerRewardBalance = await readRewardContractSettings.balanceOf(theWalletAddress);
               const convertedreadPlayerRewardBalance = readPlayerRewardBalance.toString()
@@ -698,7 +526,7 @@ useEffect(() => {
      <div className='mt-[1cm] m-[-5%] '>
      {connectedWallet ? 
      (<div className='lg:mx-[10%] mx-[5%]'>
-        {PLayerLevel === ("Beginner I" || PLayerLevel === "Beginner II" || PLayerLevel === "Beginner III" || PLayerLevel === "Beginner IV")  && (<div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 p-[2%] playgamediv' style={{backgroundImage:"url(images/batmanbg.jpg)", border:"4px solid #502"}}>
+        {(PLayerLevel === "Beginner I" || PLayerLevel === "Beginner II" || PLayerLevel === "Beginner III" || PLayerLevel === "Beginner IV")  && (<div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 p-[2%] playgamediv' style={{backgroundImage:"url(images/batmanbg.jpg)", border:"4px solid #502"}}>
             <div className='grid-cols-1'>
                 <img src="images/characters/batman.jpg" onClick={(e) => setbatman("1") & setbatmanblur("blur(7px)") & buttonsAudio(e)} className='w-[100%] lg:h-[9cm] md:h-[7cm] h-[5cm] playgamecharacter cursor-pointer' style={{boxShadow:"7px 7px 4px 1px rgba(0,0,0,0.7)", filter:batmanblur}}/>
             </div>
